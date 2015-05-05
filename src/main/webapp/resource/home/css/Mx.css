@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{ margin:0; padding:0;}
+body { font-family:"微软雅黑"; font-size:12px; line-height:22px; color:#333; border-top:3px solid #404445; }
+div{ margin:0 auto;}
+ul,li,dl,dd,dt{ list-style:none;}
+input{ border:1px solid #ccc; background:#fff}
+.left{ float:left}
+.right{ float:right}
+.clear{ clear:both;}
+a{ color:#333; text-decoration:none}
+a:hover{ color:#afbc22; text-decoration:none}
+.bold{ font-weight:bold}
+.font1{ font-size:14px;}
+.font2{ font-size:18px;}
+.en{ font-family:Arial, Helvetica, sans-serif;}
+.blue{ color:#294690}
+.white{color:#ffeed5}
+.yellow{ color:#ffbf05}
+.yingwen{ font-family:Arial, Helvetica, sans-serif; font-size:12px;}
+.yahei{ font-family:"微软雅黑"}
+.black{ color:#000}
+
+
+.container{ background:#2b2b2b;}
+.nav{ width:1200px; overflow:hidden;}
+.nav .logo{ width:99px; height:44px; float:left;}
+.logo{margin-top:10px;}
+.nav .form{ margin-left:20px;}
+.nav .form a{display:block; color:#FFF; float:left; padding:0 30px; font-size:14px; line-height:66PX;}
+.nav .form a:hover{ background-color:#0a7cd3; display:block}
+.search{width:200px; background-color:#FFF; margin-top:20px; margin-left:100px;overflow:hidden}
+.search a{display:block; color:#646464; line-height:20px; float:left;}
+.search img{float:right; width:18px; height:18px; margin-right:10px;}
+.search input{ background:url(../images/search.png) no-repeat 5px center; width:200px; height:26px; padding-left:30px; color:#999}
+.login{ overflow:hidden; padding-left:30px;}
+.login a:hover{ background: none repeat scroll 0% 0% #55ACEF; border-radius: 4px;display:block}
+.login a{float:left;display:block; color:#FFF; padding:0 10px; margin:0 0 0 10px; margin-top:24px;}
+.banner{ width:100%; overflow:hidden}
+
+
+
+/*footer 页脚*/
+.footer{height:185px; background:#333; overflow:hidden; clear:both;}
+.footera{ color:#FFF; text-align:center; margin-top:35px;}
+.footera a{color:#FFF; margin:0px 10px;}
+.footera  p{ margin-top:20px; height:50px; font-size:13px; vertical-align:center; }
+.footer img{ border:none;}
+.footer .footer_weixin{ position:relative; float:right; margin-right:13%;  top:-90px; text-align:center;}
+.footer .footer_weixin p{ color:#FFF;}
+
+/*梦想*/
+/*.mengxiang{ position:absolute; top:100px; left:35%}*/
+.mengxiang{ padding:110px 0px 80px 0px; background-image:url(../images/background_01.png); background-repeat:no-repeat;}
+.mengxiang p{ color:#FFF; font-size:14px; text-align:center; margin:10px auto;}
+.mengxiang a{ color:#FFF;}
+span{width:200px; line-height:50px; border:2px #FFFFFF solid; color:#FFF; display:block; text-align:center; margin:0 auto; cursor:pointer;}

@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户注册 - <{$Think.config.WEB_NAME}></title>
+<link href="../../../resource/home/css/register.css" rel="stylesheet" type="text/css">
+<script src="../../../resource/home/js/jquery.js"></script>
+</head>
+
+<body>
+  <include file="Public:header"/>
+    
+<div class="nei">
+
+  <div class="placard">
+	<div class="slogan left">
+    <label>
+    	你邂逅的不止是创意灵感，更是聚合力量共同奋斗的精彩！
+    </label>
+    </div>
+    <div class="ad left">
+    	<img src="../../../resource/home/images/adimg.png">
+    </div>
+</div>   
+
+
+<div class="zc">
+<form action="javascript:void(0);" id="myform" onSubmit="return reg();" method="post">
+	<table>
+           <tr>
+              <td nowrap="nowrap"> <label class="label-style">邮箱：</label></td>
+             <td nowrap="nowrap"> <input type="text" name="email" id="email" value="" > </td>
+          </tr>
+          
+                     <tr>
+              <td nowrap="nowrap"> <label class="label-style">密码：</label></td>
+             <td nowrap="nowrap"> <input type="text" oninput=""; name="password" id="password" value="" > </td>
+          </tr>
+          
+                               <tr>
+              <td nowrap="nowrap"> <label class="label-style">确认密码：</label></td>
+             <td nowrap="nowrap"> <input type="text" name="password2" id="password2"  value="" > </td>
+          </tr>
+          
+                                         <tr>
+              <td nowrap="nowrap"> <label class="label-style">手机号码：</label></td>
+             <td nowrap="nowrap"> <input type="text" name="tel" id="tel"  value="" > </td>
+          </tr>
+                                                   <tr>
+              <td nowrap="nowrap"> <label class="label-style">验证码：</label></td>
+             <td nowrap="nowrap"> <input class="yzm"  name="yzm" id="yzm"  type="text" value=""  ><img src="__APP__/Index/verify/" onclick="this.src+='?rand='+Math.random();" title="看不清,换一张?" /> </td>
+          </tr>
+          
+	 </table>
+       <input class="tijiao" type="submit" value="立即注册" />
+ </form>
+    </div>
+
+  
+  </div>
+
+
+<include file="Public:footer"/>
+</body>
+</html>
+<script>
+function reg()
+{
+	var obj='';
+
+	if($('#email').val()=='' || $('#email').val()==null)
+	{
+		$('#email').css({background:'#F6F6F6'});
+		obj=1;
+	}
+	
+	if($('#password').val()=='' || $('#password').val()==null)
+	{
+		$('#password').css({background:'#F6F6F6'});
+		obj=1;
+	}
+	
+	if($('#password2').val()=='' || $('#password2').val()==null)
+	{
+		$('#password2').css({background:'#F6F6F6'});
+		obj=1;
+	}
+	
+	if($('#password').val()!=$('#password2').val())
+	{
+		$('#password').css({background:'#F6F6F6'});
+		$('#password2').css({background:'#F6F6F6'});
+		obj=1;
+	}
+	
+	if($('#tel').val()=='' || $('#tel').val()==null)
+	{
+		$('#tel').css({background:'#F6F6F6'});
+		obj=1;
+	}
+	
+	if($('#yzm').val()=='' || $('#yzm').val()==null)
+	{
+		$('#yzm').css({background:'#F6F6F6'});
+		obj=1;
+	}
+
+	if(obj!='')
+	{
+		return false;
+	}
+	
+	$.ajax({type:'post',url:"<{:U('Index/do_reg')}>",dataType:"json",data: $('#myform').serialize(),success:function(data){
+		
+		if(data=='存在')
+		{
+			alert('邮箱已存在!');
+		}else if(data)
+		{
+			location.href="/";
+		}
+		
+	}});
+	
+}
+</script>

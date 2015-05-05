@@ -1,0 +1,1 @@
+package com.niuren.base.dao;import com.niuren.base.entity.ProjectResume;import com.niuren.base.base.BaseDao;public interface ProjectResumeDao extends BaseDao<ProjectResume> {}

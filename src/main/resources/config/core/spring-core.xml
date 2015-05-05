@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:config/db/jdbc.properties</value>
+				<!-- <value>classpath:config/props/email.properties</value> <value>classpath:config/props/encrypt.properties</value> -->
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 注册接口实现类 -->
+	<import resource="classpath*:config/beans/spring-beans.xml" />
+	<import resource="classpath*:config/core/spring-mvc.xml" />
+	<import resource="classpath*:config/db/spring-db.xml" />
+	<!-- 默认的注解映射的支持 -->
+	<!-- 添加注解驱动 -->
+	<context:annotation-config />
+	<!-- 自动扫描该包路径下的所有注解 -->
+	<context:component-scan base-package="com.niuren.base.base.impl" />
+	<context:component-scan base-package="com.niuren.base.dao" />
+	<context:component-scan base-package="com.niuren.base.service" />
+	<context:component-scan base-package="com.niuren.base.controller" />
+	<context:component-scan base-package="com.niuren.base.test" />
+	<context:component-scan base-package="com.niuren.base.util" />
+
+
+
+</beans>

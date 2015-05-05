@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人简历 - <{$Think.config.WEB_NAME}></title>
+<meta name="description" content="<{$Think.config.WEB_DESCRIPTION}>" />
+<meta name="keywords" content="<{$Think.config.WEB_KEYWORD}>" />
+<link href="__PUBLIC__/home/css/Jl.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/home/js/jquery.js"></script>
+</head>
+
+<body>
+<include file="Public:header"/>
+
+<!--内容-->
+<div class="big">
+<div class="jieshao left">
+    <!--头像-->
+	<dl>
+    	<dt>
+       <!--<img src="__PUBLIC__/home/images/touxiang.png" width="131" height="131">-->
+       <div class="photo" ><img class="photo" id="imghead1" src="<if condition="$me.photo neq ''"><{$me.photo}><else/>__PUBLIC__/home/images/touxiang.png</if>" /></div>
+       <p style="text-align:center; font-size:13px; color:#666;">基本信息</p>
+        </dt>
+    </dl>
+    
+    <ul>	
+    	<li style="background-image:url(__PUBLIC__/home/images/bnt_13.png); background-repeat:no-repeat;"><{$me.position}></li>
+	    <li style="background-image:url(__PUBLIC__/home/images/bnt_16.png); background-repeat:no-repeat;"><{$me.place}></li><br><br>
+
+
+         <li style="background-image:url(__PUBLIC__/home/images/bnt_21.png); background-repeat:no-repeat; margin-left:10px;"><{$me.tel}></li>
+         <li style="background-image:url(__PUBLIC__/home/images/bnt_24.png); background-repeat:no-repeat; margin-left:10px;"><{$me.email}></li>
+	</ul>
+    
+</div>
+<div class="dak">
+  <div class="wode right">
+  <span class="ju">
+    <img src="__PUBLIC__/home/images/bnt_07.png"><br>
+  	 <a href="#">我的招募</a>
+   </span>
+  </div>
+  <div class="wode right">
+   <span class="ju">
+     <img src="__PUBLIC__/home/images/bnt_05.png"><br>
+     <a href="#">我的投递</a>
+  </span>
+  </div>
+  
+  <div class="wode right">
+  <span class="ju">
+     <img src="__PUBLIC__/home/images/bnt_03.png"><br>
+  	 <a href="#">我的消息</a>
+  </span>
+  </div>
+</div>
+<div class="jianli">
+<p>
+ <a href="<{:U('Xinxi/content','','html')}>">
+  <h1>换工作是件需要深思熟虑的事</h1>
+  <h2>&nbsp;&nbsp;&nbsp;&nbsp;完善在线简历<img src="__PUBLIC__/home/images/bnt_29.png"/></h2>
+ </a>
+</p>
+</div>
+</div>
+
+<!--页脚-->
+<include file="Public:footer"/>  
+</body>
+</html>
+<script>
+	    function previewImage(file,idx){  
+	      
+	      var MAXWIDTH  = 100;  
+	      var MAXHEIGHT = 100; 
+	      if(idx == '1'){
+	      	var div = document.getElementById('preview1');  
+	      if (file.files && file.files[0])  
+	      {  
+	      //alert("-----------");
+	        var img = document.getElementById('imghead1');  
+	        img.onload = function(){  
+	          var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+	          img.width = rect.width;  
+	          img.height = rect.height;  
+	          img.style.marginLeft = rect.left+'px';  
+	          img.style.marginTop = rect.top+'px';  
+	        }  
+	        var reader = new FileReader();  
+	        reader.onload = function(evt){img.src = evt.target.result;}  
+	        reader.readAsDataURL(file.files[0]);  
+	      }else{  
+		        var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="'; 
+		        file.select();  
+		        var src = document.selection.createRange().text;  
+		        var img = document.getElementById('imghead');  
+		        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;  
+		        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+		        status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);  
+		        div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";  
+		      } 
+	      }
+
+		}
+
+
+
+</script>

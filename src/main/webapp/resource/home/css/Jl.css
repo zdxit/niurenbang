@@ -1,0 +1,109 @@
+
+*{ margin:0; padding:0;}
+body { font-family:"微软雅黑"; font-size:12px; line-height:22px; color:#333; border-top:3px solid #404445; background-color:#f8f7f7;}
+div{ margin:0 auto;}
+ul,li,dl,dd,dt{ list-style:none;}
+input{ border:1px solid #ccc; background:#fff}
+.left{ float:left}
+.right{ float:right}
+.clear{ clear:both;}
+a{ color:#333; text-decoration:none}
+a:hover{ color:#afbc22; text-decoration:none}
+.bold{ font-weight:bold}
+.font1{ font-size:14px;}
+.font2{ font-size:18px;}
+.en{ font-family:Arial, Helvetica, sans-serif;}
+.blue{ color:#294690}
+.white{color:#ffeed5}
+.yellow{ color:#ffbf05}
+.yingwen{ font-family:Arial, Helvetica, sans-serif; font-size:12px;}
+.yahei{ font-family:"微软雅黑"}
+.black{ color:#000}
+
+
+.container{ background:#2b2b2b;}
+.nav{ width:1200px; overflow:hidden;}
+.nav .logo{ width:99px; height:44px; float:left;}
+.logo{margin-top:10px;}
+.nav .form{ margin-left:20px;}
+.nav .form a{display:block; color:#FFF; float:left; padding:0 30px; font-size:14px; line-height:66PX;}
+.nav .form a:hover{ background-color:#0a7cd3; display:block}
+.search{width:200px; background-color:#FFF; margin-top:20px; margin-left:100px;overflow:hidden}
+.search a{display:block; color:#646464; line-height:20px; float:left;}
+.search img{float:right; width:18px; height:18px; margin-right:10px;}
+.search input{ background:url(../images/search.png) no-repeat 5px center; width:200px; height:26px; padding-left:30px; color:#999}
+.login{ overflow:hidden; padding-left:30px;}
+.login a:hover{ background: none repeat scroll 0% 0% #55ACEF; border-radius: 4px;display:block}
+.login a{float:left;display:block; color:#FFF; padding:0 10px; margin:0 0 0 10px; margin-top:24px;}
+.banner{ width:100%; overflow:hidden}
+
+/*介绍*/
+.big{width:1200px;}
+.jieshao{background-image:url(../images/back_03_03.png); background-repeat:no-repeat; width:851px; height:463px; margin-top:50px;}
+.jieshao dl{position:absolute;left:465px; top:235px;}
+.jieshao ul{ position:relative; width:300px; left:34%; top:60%; padding-top:20px;}
+.jieshao li{float:left;height:25px; padding-left:30px; margin-left:9px; width:100px;}
+
+/*简历*/
+.jianli{ background-image:url(../images/back01.png); background-repeat:no-repeat;height:150px; clear:both; width:851px; float:left; margin:30px 0;} 
+.jianli p{ margin-top:50px;}
+.jianli h1{ font-weight:200; margin-left:60px;float:left; padding-top:12px;}
+.jianli h2{ font-weight:200; float:right; margin-right:50px; border:1px solid #8593a0; line-height:50px; border-radius:4px;}
+.jianli img{ margin-top:8px; float:right; padding:0 20px;}
+
+/*我的消息*/
+.dak{ float:right; margin-top:30px; height:120px; width:280px;}
+.dak div{ margin-left:10px;float:right;}
+.wode{border:1px solid #999; width:80px; height:100px; margin-top:20px; cursor:pointer; font-family:"微软雅黑"; background-color:#FFF; border-radius:4px; float:right;}
+.ju a{margin-left:17px; margin-top:20px;}
+.ju img{margin-left:28px; margin-top:25px;}
+/*footer 页脚*/
+.footer{height:185px; background:#333; overflow:hidden; clear:both;}
+.footera{ color:#FFF; text-align:center; margin-top:35px;}
+.footera a{color:#FFF; margin:0px 10px;}
+.footera  p{ margin-top:20px; height:50px; font-size:13px; vertical-align:center; }
+.tubiao a{margin:0 5px;}
+.footer img{ border:none;}
+.footer .footer_weixin{ position:relative; float:right; margin-right:13%;  top:-90px; text-align:center;}
+.footer .footer_weixin p{ color:#FFF;}
+
+/*消息列表*/
+.big{margin:20px auto;}
+.xiaox{background:#FFF; border-radius:2px; margin:5px auto;}
+.pingjia{overflow:hidden; margin:10px auto; padding-left:20px; width:850px; }
+.pingjia img{width:60px; height:60px; float:left; margin-top:15px;}
+.pingjia p{float:left; margin-top:16px; margin-left:20px;}
+.pingjia a{color:#3096e4; font-size:14px;}
+.pingjia b{font-size:12px; font-weight:normal;}
+
+.biaot{width:900px; border-bottom:1px solid #999; margin-left:0px; margin-bottom:20px; clear:both;}
+.biaot p{display:block; background:#f1a727; width:150px; line-height:50px; text-align:center; color:#FFF;}
+
+.sj{width:750px; margin-bottom:20px;}
+.sj p{margin-left:38px; width:100px;}
+.sj a{float:right; width:80px; line-height:30px; display:block; border:1px solid #999; border-radius:2px; text-align:center; margin-right:10px;}
+.xx{width:700px; background:#e8e8e8; height:110px; margin-left:100px; margin-bottom:20px; padding-top:4px;}
+.xx a{color:#3096e4; font-size:14px;line-height:20px;}
+.xx p{margin:10px 0 10px 15px;}
+
+/*yem*/
+.pages{ width:400px; padding:10px 0; padding-top:25px; clear:both;}
+.pages span,.pages a,.pages b{ font-size:12px; margin:0 3px;}
+.pages span font{ color:#f00; font-size:12px;}
+.pages a,.pages b{ border:1px solid #ddd; background:#fff; padding:8px 14px; text-decoration:none}
+.pages span { padding-right:10px }
+.pages b,.pages a:hover{ background:#034da2; color:#fff;}
+
+/*项目*/
+.xiangm{ background:#FFF; width:900px; margin-bottom:20px;}
+.fb img{ width:100px; height:80px; margin-top:20px; margin-left:20px;}
+.fb{float:left;} 
+.xq{margin-top:20px; float:left;}
+.xq a{color:#3096e4; font-size:18px; line-height:20px; margin-left:10px; font-family:"宋体"}
+.xq p{margin:35px 0 0 10px; color:#999;}
+
+.shenghe{ border:1px solid #f0f0f0; width:300px; color:#F60; font-size:16px; margin-top:15px; margin-bottom:20px; margin-left:350px;}
+.shenghe p{color:#999; font-size:12px; margin-top:10px; padding-left:10px; padding-bottom:5px;}
+.shenghe img{padding-top:10px; padding-left:10px;}
+.photo{ width:130px; height:130px; border-radius:70px;}
+

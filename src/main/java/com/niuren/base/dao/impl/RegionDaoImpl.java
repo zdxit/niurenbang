@@ -1,0 +1,1 @@
+package com.niuren.base.dao.impl;import org.springframework.stereotype.Repository;import com.niuren.base.base.impl.BaseDaoImpl;import com.niuren.base.dao.RegionDao;import com.niuren.base.entity.Region;@Repository("regionDao")public class RegionDaoImpl   extends BaseDaoImpl<Region> implements RegionDao {}

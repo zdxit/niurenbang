@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0; padding:0;}
+body{ font-family:"微软雅黑"; font-size:12px; line-height:22px; color:#333; background-image:url(../images/1.png);}
+div{margin:0 auto;}
+ul,dl,dd,dt,li{list-style:none;}
+.left{float:left;}
+.right{float:right;}
+.ziliao{width:390px; position:absolute;top:20%; left:35%; text-align:center; border-radius:5px; background-color:#d8efff; padding:30px 0px 25px 0;}
+table{ width:100%; margin-top:15px;}
+table tr td { margin:10px auto; color:#333; text-align:center;}
+td a{color:#09F;}
+table tr td input{ width:290px; padding:10px 0px 10px 10px;}
+.sex,.job{ width:132px;}
+input{ border-radius:4px; border:none; font-size:12px; color:#999; font-family:"微软雅黑"; margin:4px 6px;}
+input:focus{ box-shadow:0 0 3px #0066FF;}
+.logo img{ position:absolute; left:35%; top:10%}
+.zhiye{padding-left:70px;}
+.zhiye li{ width:100px; line-height:50px; border-radius:2px; margin:10px 10px; cursor:pointer; float:left; border:1px #39F solid;}
+/*.zhiye li:hover{border:1px solid #09F; width:98px; height:48px;}*/
+.xuan{color:#FFF; background-color:#39F;}
+.submit{cursor:pointer; background:#09C; color:#FFF; width:300px; margin-top:20px;}
+.sexul{ display:none; position:absolute; left:44px;  border-radius:3px; margin-top:-6px; background:#FFF; border-left:1px solid #CCC; border-bottom:1px solid #CCC;  border-right:1px solid #CCC;  color:#333; width:142px;}
+.sexul li{ padding:3px 0px 0px 3px; cursor:pointer;}
+.sexul li:hover{background:#f2f2f2;}

@@ -1,0 +1,1 @@
+package com.niuren.base.dao;import com.niuren.base.entity.MemberRole;import com.niuren.base.base.BaseDao;public interface MemberRoleDao extends BaseDao<MemberRole> {}

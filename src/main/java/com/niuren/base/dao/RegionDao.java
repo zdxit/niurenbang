@@ -1,0 +1,1 @@
+package com.niuren.base.dao;import com.niuren.base.entity.Region;import com.niuren.base.base.BaseDao;public interface RegionDao extends BaseDao<Region> {}

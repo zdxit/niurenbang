@@ -1,0 +1,468 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>发起我的项目-大学生创业,从找合伙人开始|牛人邦</title>
+		<meta name="description" content="小梦想 聚合大能量。在这里，你结识到的不仅是创业团队，更是一起实现梦想的同行伙伴。在这里，你邂逅的不止是创意灵感，更是聚合力量共同奋斗的精彩。牛人邦，蓄势待发，虚位以待！ " />
+		<meta name="keywords" content="牛人邦 大学生创业 创业 创业合伙人 创业项目" />
+		<link href="../../resource/Web/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="../../resource/Web/css/login.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="../../resource/Web/js/jquery.js"></script><script type="text/javascript" src="../../resource/ThinkBox/jquery.ThinkBox.js"></script><script type="text/javascript" src="../../resource/kindeditor/kindeditor-all-min.js"></script><script type="text/javascript" src="../../resource/Web/uploadify-v3.1/jquery.uploadify-3.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../resource/ThinkBox/css/ThinkBox.css" media="all" />
+		<script type="text/javascript">
+			$(function () {
+				$("ul.tab > li").click(function () {
+					$(this).addClass("current").siblings("li").removeClass('current');
+					var index = $(this).index();
+					$("div.tab").each(function () {
+						if (index === $(this).index() - 1) {
+							$("div.tab").hide();
+							$(this).show();
+							return false;
+						}
+					});
+				});
+				$("#logo-pic-uploder").uploadify({
+					'queueSizeLimit': 1,
+					'removeTimeout': 0.5,
+					'preventCaching': true,
+					'multi': false,
+					'swf': '../../resource/Web/uploadify-v3.1/uploadify.swf',
+					'uploader': '/index.php/UCenter/uploadAvatar',
+					'buttonText': '<i class="userup-icon"></i>上传图片',
+					'width': '90',
+					'height': '28',
+					'fileTypeExts': '*.jpg; *.png; *.gif;',
+					'onUploadSuccess': function (file, data, response) {
+						var data = $.parseJSON(data);
+						if (data.status === 1) {
+							$("#logo-pic-uploder-queue").hide();
+							$("#logo-pic-show").attr("src", data['url'] + '?random=' + Math.random());
+							$("input[name='logo_pic']").val(data['url']);
+						} else {
+							alert(data.info);
+						}
+
+					},
+					"onUploadProgress": function (file, bytesLoaded, bytesTotal) {
+						var percent = Math.ceil(bytesLoaded / bytesTotal) * 100;
+						$("#logo-pic-uploder-queue").html(percent + "%");
+					}
+				});
+				var about_team_text = KindEditor.create('textarea[name="about_team"]');
+				var project_descrip_text = KindEditor.create('textarea[name="project_descrip"]');
+				var project_future_text = KindEditor.create('textarea[name="project_future"]');
+				var competitive_edge_text = KindEditor.create('textarea[name="competitive_edge"]');
+				var my_hope_text = KindEditor.create('textarea[name="my_hope"]');
+				$("#province").change(function () {
+					var pid = $(this).val();
+					var $city = $("#city");
+					var $option = $("<option value=''>请选择城市</option>");
+					$city.html($option);
+					$.ajax({
+						type: "post",
+						data: {'pid': pid},
+						url: "/index.php../../resource/city",
+						dataType: "json",
+						success: function (json) {
+							for (var i = 0; i < json.length; i++) {
+								var $option = $("<option value='" + json[i].id + "'>" + json[i].name + "</option>");
+								$city.append($option);
+							}
+						}
+					});
+				});
+				$(".project_link").click(function () {
+					if ($(this).attr('checked') == 'checked') {
+						$("input[name='" + $(this).val() + "']").show();
+					} else {
+						$("input[name='" + $(this).val() + "']").hide();
+					}
+				});
+				$("#publish_project_form").submit(function () {
+					if ($('input[name="logo_pic"]').val() === "") {
+						$.ThinkBox.error("请上传一张项目LOGO!", {'delayClose': 500});
+						$('input[name="logo_pic"]').focus();
+						return false;
+					}
+					if ($('input[name="title"]').val() === "") {
+						$.ThinkBox.error("项目标题不能为空!", {'delayClose': 500});
+						$('input[name="title"]').focus();
+						return false;
+					}
+					if ($('select[name="province"]').val() === "") {
+						$.ThinkBox.error("请选择项目省份!", {'delayClose': 500});
+						$('select[name="province"]').focus();
+						return false;
+					}
+					if ($('select[name="city"]').val() === "") {
+						$.ThinkBox.error("请选择项目城市!", {'delayClose': 500});
+						$('select[name="city"]').focus();
+						return false;
+					}
+					if ($('textarea[name="simple_descrip"]').val() === "") {
+						$.ThinkBox.error("一句简述不能为空!", {'delayClose': 500});
+						$('textarea[name="simple_descrip"]').focus();
+						return false;
+					}
+					if (about_team_text.isEmpty()) {
+						$.ThinkBox.error("关于团队内容不能为空!", {'delayClose': 500});
+						about_team_text.focus();
+						return false;
+					}
+					if (project_descrip_text.isEmpty()) {
+						$.ThinkBox.error("项目简介内容不能为空!", {'delayClose': 500});
+						project_descrip_text.focus();
+						return false;
+					}
+					if ($('input[name="team_people"]').val() === "" || $('input[name="team_fulltime_people"]').val() === "") {
+						$.ThinkBox.error("请填写项目人数!", {'delayClose': 500});
+						$('input[name="team_people"]').focus();
+						return false;
+					}
+
+					if ($('input[name="tel_no"]').val() === "") {
+						$.ThinkBox.error("负责人联系电话不能为空!", {'delayClose': 500});
+						$('input[name="tel_no"]').focus();
+						return false;
+					}
+					if ($('input[name="qq_no"]').val() === "") {
+						$.ThinkBox.error("负责人联系QQ号不能为空!", {'delayClose': 500});
+						$('input[name="qq_no"]').focus();
+						return false;
+					}
+					if ($('input[name="email"]').val() === "") {
+						$.ThinkBox.error("负责人联系电话不能为空邮箱!", {'delayClose': 500});
+						$('input[name="email"]').focus();
+						return false;
+					}
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		
+	<form name="chpwd-dialog-form" id="chpwd-dialog-form" action="/index.php/UCenter/chpwd.html" method="post">
+		<div class="quan" id="chpwd-dialog-mask"></div>
+		<div class="loginkuang" id="chpwd-dialog">
+			<a class="exit" href="javascript:void(0);" action="closechpwd">×</a>
+			<ul>
+				<li class="logintitle">修改密码</li>
+				<li><input name="oldpassword" type="password" placeholder="原始密码" /></li>
+				<li><input name="password" type="password" placeholder="新的登录密码" /></li>
+				<li><input name="repassword" type="password" placeholder="请再输入一次新密码" /></li>
+				<li>
+					<input class="denglu" type="button" action="chpwdDialogSubmit" value="提&nbsp;交" />
+					<div id="dialog-chpwd-form-message" class="form-validator-error" style="display: none"></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+
+	<script>
+		$(function () {
+			$('*[action="chpwd"]').click(function () {
+				$('#chpwd-dialog').show();
+				$('#chpwd-dialog-mask').show().height($('body').height());
+			});
+			$('*[action="closechpwd"]').click(function () {
+				$('#chpwd-dialog').hide();
+				$('#chpwd-dialog-mask').hide();
+			});
+			$('*[action="chpwdDialogSubmit"]').click(function () {
+				var oldpassword = $("#chpwd-dialog-form").find('input[name="oldpassword"]').val();
+				var password = $("#chpwd-dialog-form").find('input[name="password"]').val();
+				var repassword = $("#chpwd-dialog-form").find('input[name="repassword"]').val();
+				if (oldpassword === "") {
+					$("#dialog-chpwd-form-message").html("原始密码不能为空！").show();
+					return false;
+				}
+				if (password === "") {
+					$("#dialog-chpwd-form-message").html("新的登录密码不能为空！").show();
+					return false;
+				}
+				if (repassword === "" || repassword !== password) {
+					$("#dialog-chpwd-form-message").html("确认密码与新密码不一致！").show();
+					return false;
+				}
+				$.ajax({
+					type: "post",
+					data: {'oldpassword': oldpassword, 'repassword': repassword, 'password': password},
+					url: "/index.php/UCenter/chpwd.html",
+					dataType: "json",
+					success: function (json) {
+						if (json.state) {
+							window.location.reload();
+						} else {
+							$("#dialog-chpwd-form-message").html(json.message).show();
+						}
+					}
+				});
+			});
+
+		});
+	</script>
+
+<div class="header">
+	<div class="nav">
+		<div class="logo"><a href="/"><img src="../../resource/Web/images/logo.png" width="147"></a></div>
+		<div class="form left">
+			<a href="/" >首页</a>
+			<a href="/index.php/Project/index.html" >项目浏览</a>
+			<a href="/index.php/Recruit/index.html" class="current">招募队友</a>
+							<a href="/index.php/UCenter/index.html" >个人简历</a>		</div>
+		<div class="nav-right right">
+			<div class="login right">
+				
+					<div class="top-admin">
+						<span class="uc-hello">您好，</span>
+						<ul>
+							<li class="login-info login-info-hover-action" id="login-info">
+								<p class="top-wbico">&nbsp;</p>
+								<a href="/index.php/UCenter/index.html" class="uc-admin-name"><span>xuemiadmin@163.com</span></a>
+								<div class="clear"></div>
+							</li>
+						</ul>
+						<div class="login-info-box login-info-hover-action" id="login-info-box">
+							<a href="/index.php/UCenter/avatar.html" class="uc-admin"><img src="../../avatar/2015/04/16/552e95c4582e6.jpg" height="56" width="56" alt="" /></a>
+							<div class="t-img">
+								<p>牛人邦账号：xuemiadmin@163.com</p>
+								<a href="javascript:;" action="chpwd" class="uc-change">修改密码</a>
+								<a href="/index.php/UCenter/logout.html" class="uc-manage">退出</a>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<script>
+						$(document).ready(function () {
+							$(".login-info-hover-action").hover(
+									function () {
+										$("#login-info").addClass('login-info-hover');
+										$("#login-info-box").show();
+									},
+									function () {
+										$("#login-info").removeClass('login-info-hover');
+										$("#login-info-box").hide();
+									}
+							);
+						});
+						function EnterPress() {
+							if (event.keyCode === 13) {
+								window.location.href = "/index.php/Project/index/key/" + $("#searchkeybox").val();
+//								alert($("#searchkeybox").val());
+							}
+						}
+					</script>				<div class="clear"></div>
+			</div>
+
+			<div class="search right">
+				<input type="text" value="" id="searchkeybox" placeholder="输入您要查找的内容" onkeypress="EnterPress()" onkeydown="EnterPress()" />
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+		<div class="banner-fb">
+			<h2>在这里发布您的创业项目</h2>
+			<p>完整的信息可以让你更快的找到合伙人</p>
+			<img src="../../resource/Web/images/ico5.png" />
+		</div>
+		<form action="/index.php/UCenter/save_project" method="post" id="publish_project_form">
+			<div class="contain">
+				<div class="project-img fff">
+					<div class="fb-top-l left">
+						<h2>项目LOGO</h2>
+						<div class="fb-upload right">
+							<div class="fb-admin">
+								<img src="../../resource/Web/images/default1.png" width="174" height="177" alt="" id="logo-pic-show"/>
+							</div>
+							<input type="file" id="logo-pic-uploder" />
+							<input type="hidden" name="logo_pic" value=""/>
+							<div id="logo-pic-uploder-queue"></div>
+							<p>提示：建议添加长宽比为1:1的jpg/jpeg/png格式文件，文件小于2MB</p>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="fb-top-r right">
+						<dl>
+							<dt><span>*</span>项目名称</dt>
+							<dd>
+								<input name="title" type="text" class="fa-input" maxlength ="15"/>
+								<span>给项目起个简单明了，便于记忆的名字吧，方便合伙人通过项目名称搜索到您的项目。标题长度请控制在15字以内</span>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						<dl>
+							<dt><span>*</span>所在地区</dt>
+							<dd>
+								<select name="province" id="province">
+									<option value=''>请选择省份</option>
+									<option value="2">北京</option><option value="3">安徽</option><option value="4">福建</option><option value="5">甘肃</option><option value="6">广东</option><option value="7">广西</option><option value="8">贵州</option><option value="9">海南</option><option value="10">河北</option><option value="11">河南</option><option value="12">黑龙江</option><option value="13">湖北</option><option value="14">湖南</option><option value="15">吉林</option><option value="16">江苏</option><option value="17">江西</option><option value="18">辽宁</option><option value="19">内蒙古</option><option value="20">宁夏</option><option value="21">青海</option><option value="22">山东</option><option value="23">山西</option><option value="24">陕西</option><option value="25">上海</option><option value="26">四川</option><option value="27">天津</option><option value="28">西藏</option><option value="29">新疆</option><option value="30">云南</option><option value="31">浙江</option><option value="32">重庆</option><option value="33">香港</option><option value="34">澳门</option><option value="35">台湾</option>								</select>
+								<select name="city" id="city">
+									<option value=''>请选择城市</option>
+																	</select>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						<dl>
+							<dt><span>*</span>项目方向</dt>
+							<dd>
+								<select name="industry_type" class="fa-select">
+									<option value="1">互联网</option><option value="2">科技</option><option value="3">娱乐</option><option value="4">生活</option><option value="5">农业</option><option value="8">文化艺术</option><option value="9">教育</option><option value="10">其他</option>								</select>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+						<dl>
+							<dt><span>*</span>一句简述</dt>
+							<dd>
+								<textarea name="simple_descrip" rows="2" class="fa-textarea"></textarea>
+								<span>请用一句话介绍您的项目是做什么的。</span>
+							</dd>
+							<div class="clear"></div>
+						</dl>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="project-intro fff mt33">
+					<ul class="project-intro-ul tab">
+						<li class="current"><a href="javascript:;"><span>*</span>关于团队</a><em></em></li>
+						<li><a href="javascript:;"><span>*</span>项目简介</a><em></em></li>
+						<li><a href="javascript:;">项目前景</a><em></em></li>
+						<li><a href="javascript:;">竞争优势</a><em></em></li>
+						<div class="clear"></div>
+					</ul>
+					<div class="project-intro-con tab">
+						<p>可包括组建时间，现有人员，组织构成与分工等。</p>
+						<p>&nbsp;</p>
+						<textarea name="about_team" rows="2" style="width:800px;height: 350px;" class="fa-textarea"></textarea>
+					</div>
+					<div class="project-intro-con tab" style="display: none">
+						<p>请详细描述下您的项目，发现的实际需求，自己的创业历程，自己的感悟和心得等。建议以图片加文字的形式描述。</p>
+						<p>&nbsp;</p>
+						<textarea name="project_descrip" rows="2" style="width:800px;height: 350px;" class="fa-textarea"></textarea>
+					</div>
+					<div class="project-intro-con tab" style="display: none">
+						<p>可以从同类项目，市场现状等多方面概述下项目发展前景。</p>
+						<p>&nbsp;</p>
+						<textarea name="project_future" rows="2" style="width:800px;height: 350px;" class="fa-textarea"></textarea>
+					</div>
+					<div class="project-intro-con tab" style="display: none">
+						<p>与行业其他相似产品相比，您的项目有哪些优势呢？例如资源优势、团队优势或者技术优势等。建议以图片加文字的形式描述。</p>
+						<p>&nbsp;</p>
+						<textarea name="competitive_edge" rows="2" style="width:800px;height: 350px;" class="fa-textarea"></textarea>
+					</div>
+				</div>
+				<div class="project-team fff mt33">
+					<dl>
+						<dt><span>*</span>团队情况</dt>
+						<dd>
+							<span>团队人数：</span>
+							<input name="team_people" type="text" placeholder="团队人数" /> <span>人，其中全职人数：</span>
+							<input name="team_fulltime_people" type="text" placeholder="全职人数" />
+						</dd>
+						<div class="clear"></div>
+					</dl>
+					<dl>
+						<dt><span>*</span>项目阶段</dt>
+						<dd>
+							<select name="progress_type" class="fa-select">
+								<option value="1">有个好主意</option><option value="2">产品开发中</option><option value="3">上线运营</option>							</select>
+						</dd>
+						<div class="clear"></div>
+					</dl>
+					<dl>
+						<dt>产品链接</dt>
+						<dd>
+							<div class="proj-lian">
+								<div class="proj-left left">
+									<label>
+										<input type="checkbox" class="project_link" value="web_url" />
+										WEB
+									</label>
+									<label>
+										<input type="checkbox" class="project_link" value="iphone_app_url" />
+										iPhone App
+									</label>
+									<label>
+										<input type="checkbox" class="project_link" value="android_app_url" />
+										Android App
+									</label>
+								</div>
+								<div class="proj-right left">
+									<p style="margin-bottom: 10px;height: 30px;"><input name="web_url" type="text" placeholder="请填写网站地址，以http://或https://开头" style="display: none" /></p>
+									<p style="margin-bottom: 10px;height: 30px;"><input name="iphone_app_url" type="text" placeholder="请填写IOS App下载地址，以http://或https://开头" style="display: none" /></p>
+									<p><input name="android_app_url" type="text" placeholder="请填写Android App下载地址，以http://或https://开头" style="display: none" /></p>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</dd>
+						<div class="clear"></div>
+					</dl>
+				</div>
+				<div class="project-part fff mt33">
+					<h2>召唤合伙人</h2>
+					<div class="proj-part-name">
+						<label>
+								<input type="checkbox" name="need_member_role[]" value="2" id="CheckboxGroup2_0" />
+								技术合伙人
+							</label><label>
+								<input type="checkbox" name="need_member_role[]" value="3" id="CheckboxGroup2_0" />
+								营销合伙人
+							</label><label>
+								<input type="checkbox" name="need_member_role[]" value="4" id="CheckboxGroup2_0" />
+								运营合伙人
+							</label><label>
+								<input type="checkbox" name="need_member_role[]" value="5" id="CheckboxGroup2_0" />
+								设计合伙人
+							</label><label>
+								<input type="checkbox" name="need_member_role[]" value="6" id="CheckboxGroup2_0" />
+								产品合伙人
+							</label><label>
+								<input type="checkbox" name="need_member_role[]" value="7" id="CheckboxGroup2_0" />
+								其它合伙人
+							</label>					</div>
+					<h2>我的期冀</h2>
+					<p>合伙人正在看你的项目，想不想说点什么打动TA？真诚地说出自己憧憬的未来，吸引那些也有过同样想法的人,召唤他们立刻加入吧！</p>
+					<p>&nbsp;</p>
+					<textarea name="my_hope" cols="" rows="5" style="width:800px;height: 350px;"></textarea>
+					<h2>
+						<span>*</span>团队负责人联系方式
+					</h2>
+					<div class="team-contact">
+						<span><i>TEL：</i><input name="tel_no" type="text" /></span>
+						<span><i>QQ：</i><input name="qq_no" type="text" /></span>
+						<div class="clear"></div>
+						<span><i>E-mail：</i><input name="email" type="text" /></span>
+					</div>
+				</div>
+				<div class="proj-fb-submit">
+					<input name="" type="submit" value="提&nbsp;交" />
+				</div>
+			</div>
+		</form>
+		<div class="footer">
+	<div class="bot">
+		<p>
+		 <a href="/index.php../../resource/help/id/1.html">关于我们</a>| <a href="/index.php../../resource/help/id/5.html">联系我们</a>| <a href="/index.php../../resource/help/id/6.html">服务协议</a>| <a href="/index.php../../resource/help/id/7.html">项目发起规范</a>| <a href="/index.php../../resource/help/id/8.html">新手帮助</a>| <a href="/index.php../../resource/help/id/9.html">帮助中心</a>| <a href="/index.php../../resource/help/id/19.html">创业资源池</a>		</p>
+		<p>
+			帮助创业者建立联系 ©2014 京ICP备13045110号
+			<!--技术支持：<a href="#">中亿智企云</a>-->
+		</p>
+		<ul>
+			<li class="bot-sina"><a href="#"><em></em>新浪微博</a></li>
+			<li class="bot-weixin"><a href="#"><em></em>腾讯微信</a></li>
+			<li class="bot-baidu"><a href="#"><em></em>百度百科</a></li>
+			<li class="bot-qq"><a href="#"><em></em>QQ交谈</a></li>
+		</ul>
+		<div class="clear"></div>
+		<div class="ewm">
+			<img src="../../resource/Web/images/ewm.jpg" />
+			扫一扫关注我们
+		</div>
+	</div>
+</div>
+	</body>
+</html>

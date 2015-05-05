@@ -1,0 +1,1 @@
+package com.niuren.base.dao;import com.niuren.base.entity.Article;import com.niuren.base.base.BaseDao;public interface ArticleDao extends BaseDao<Article> {}

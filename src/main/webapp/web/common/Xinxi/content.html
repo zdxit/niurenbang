@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>完善简历 - <{$Think.config.WEB_NAME}></title>
+<meta name="description" content="<{$Think.config.WEB_DESCRIPTION}>" />
+<meta name="keywords" content="<{$Think.config.WEB_KEYWORD}>" />
+<link href="__PUBLIC__/home/css/content.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/home/js/jquery.js"  type="text/jscript"></script>
+</head>
+
+<body>
+<form action="<{:U('Xinxi/content_1')}>" id="myform"  onSubmit="return onsumbit();" method="post" enctype="multipart/form-data">
+<div class="ziliao">
+	<dl>
+    	<dt>
+       <!--<img src="__PUBLIC__/home/images/touxiang.png" width="131" height="131">-->
+       <div class="photo" ><input name="photo" id="photo" onchange="previewImage(this,1)" type="file" /><img id="imghead1" src="<if condition="$xinxi.photo neq ''"><{$xinxi.photo}><else/>__PUBLIC__/home/images/touxiang.png</if>" /></div>
+       <p style="text-align:center; font-size:13px; color:#666;">基本信息</p>
+        </dt>
+    </dl>
+	<table>
+    	<tr>
+               <td nowrap="nowrap"> <input name="name" id="name" type="text" value="<if condition="$xinxi.name neq ''"><{$xinxi.name}><else/>真实姓名</if>" onFocus="focusobj(this,'真实姓名');" onBlur="blurobj(this,'真实姓名');" /> </td>
+        </tr>
+        
+        	<tr>
+               <td nowrap="nowrap">
+               <input name="sex" id="sex" type="text" onClick="play();" readonly value="<if condition="$xinxi.sex neq ''"><{$xinxi.sex}><else/>性别</if>" class="sex" onFocus="focusobj(this,'性别');" onBlur="blurobj(this,'性别');" />
+               <ul class="sexul">
+                 <li>男</li>
+                 <li>女</li>
+                 <li>保密</li>
+               </ul>
+               <input name="nianling" id="nianling" type="text" value="<if condition="$xinxi.age neq ''"><{$xinxi.age}><else/>年龄</if>" class="job" onFocus="focusobj(this,'年龄');" onBlur="blurobj(this,'年龄');" /> </td>
+            
+        </tr>	
+    
+<!--        	<tr>
+               <td nowrap="nowrap"> <input name="nianxian" id="nianxian" type="text" value="工作年限" onFocus="focusobj(this,'工作年限');" onBlur="blurobj(this,'工作年限');" /> </td>
+        </tr>-->
+        
+                	<tr>
+               <td nowrap="nowrap"> <input name="school" id="school" type="text" value="<if condition="$xinxi.school neq ''"><{$xinxi.school}><else/>所在/毕业院校</if>" onFocus="focusobj(this,'所在/毕业院校');" onBlur="blurobj(this,'所在/毕业院校');" /> </td>
+        </tr>
+                        	<tr>
+               <td nowrap="nowrap"> <input name="place" id="place" type="text" value="<if condition="$xinxi.place neq ''"><{$xinxi.place}><else/>所在城市</if>"  onFocus="focusobj(this,'所在城市');" onBlur="blurobj(this,'所在城市');" /> </td>
+        </tr>
+        
+        <tr>
+         <td><input type="submit" value="下一步 : 继续完善职业信息" class="submit" /></td>
+        </tr>
+        <input type="hidden" name="mid" value="<{$Think.session.user.id}>" />
+    </table>
+</div>
+</form>
+</body>
+</html>
+<script>
+function focusobj(obj,value)
+{
+  if(obj.value==value)
+  {
+    obj.value='';	
+  }
+  
+  if($(obj).attr('id')=='sex')
+  {
+	  play();
+  }
+  
+}
+
+function blurobj(obj,value)
+{  
+	if(obj.value=='')
+  {
+    obj.value=value;
+  }
+  
+   if(value=='性别')
+  {  
+     if(obj.value!='男' && obj.value!='女' && obj.value!='保密')
+	 {
+	   obj.value='';
+	 }
+  
+   setTimeout(
+	  function(){
+		 $('.sexul').hide();	
+		 },200
+	);	 
+	
+  }
+}
+
+function play()
+{
+  $('.sexul').show();
+}
+
+$('.sexul li').click(function(){
+	$('.sex').val($(this).html());
+	$('.sexul').hide();
+	}
+);
+
+function onsumbit()
+{
+  var arrayobj=new Array();
+  //arrayobj[0]=['#photo','照片'];
+  arrayobj[1]=['#name','真实姓名'];
+  arrayobj[2]=['#sex','性别'];
+  arrayobj[3]=['#nianling','年龄'];
+  arrayobj[4]=['#nianxian','工作年限'];
+  arrayobj[5]=['#school','所在/毕业院校'];
+  arrayobj[6]=['#place','所在城市'];
+  
+  var obj='';
+  
+  
+  for(var a=1;a<arrayobj.length;a++)
+  {
+    if($(arrayobj[a][0]).val()==arrayobj[a][1] || $(arrayobj[a][0]).val()=='')
+	{
+	   obj+='请完善'+arrayobj[a][1]+'资料\n';
+	}
+	
+  }
+  
+  if(obj!='')
+  {
+   alert(obj);
+   return false;
+  }
+  
+  
+   /* $.ajax({type:'post',url:"<{:U('Xinxi/content_1')}>",dataType:"json",data: $('#myform').serialize(),success:function(data){
+		
+		alert(data);
+		
+	}});*/
+  
+ 
+}
+
+
+/*var bodyurl=1;
+var bodylen=3; //背景图片个数
+setInterval(function(){
+  if(bodyurl>bodylen)
+  {
+    bodyurl=1;
+  }
+  
+  $('body').css('background-image','url(__PUBLIC__/home/images/'+bodyurl+'.png)')
+  bodyurl++;
+},5000);
+*/
+
+
+
+/**
+	     * 上传图片预览
+	     */
+	    function previewImage(file,idx){  
+	      
+	      var MAXWIDTH  = 100;  
+	      var MAXHEIGHT = 100; 
+	      if(idx == '1'){
+	      	var div = document.getElementById('preview1');  
+	      if (file.files && file.files[0])  
+	      {  
+	      //alert("-----------");
+	        var img = document.getElementById('imghead1');  
+	        img.onload = function(){  
+	          var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+	          img.width = rect.width;  
+	          img.height = rect.height;  
+	          img.style.marginLeft = rect.left+'px';  
+	          img.style.marginTop = rect.top+'px';  
+	        }  
+	        var reader = new FileReader();  
+	        reader.onload = function(evt){img.src = evt.target.result;}  
+	        reader.readAsDataURL(file.files[0]);  
+	      }else{  
+		        var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="'; 
+		        file.select();  
+		        var src = document.selection.createRange().text;  
+		        var img = document.getElementById('imghead');  
+		        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;  
+		        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+		        status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);  
+		        div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";  
+		      } 
+	      }
+
+		}
+
+
+
+</script>

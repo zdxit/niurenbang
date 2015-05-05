@@ -1,0 +1,1 @@
+package com.niuren.base.dao;import com.niuren.base.entity.WebsiteVisitQuantity;import com.niuren.base.base.BaseDao;public interface WebsiteVisitQuantityDao extends BaseDao<WebsiteVisitQuantity> {}

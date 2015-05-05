@@ -1,0 +1,330 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>个人简历-大学生创业,从找合伙人开始|牛人邦</title>
+		<meta name="description" content="小梦想 聚合大能量。在这里，你结识到的不仅是创业团队，更是一起实现梦想的同行伙伴。在这里，你邂逅的不止是创意灵感，更是聚合力量共同奋斗的精彩。牛人邦，蓄势待发，虚位以待！ " />
+		<meta name="keywords" content="牛人邦 大学生创业 创业 创业合伙人 创业项目" />
+		<link rel="stylesheet" type="text/css" href="../../resource/Web/css/style.css" media="all"/>
+		<link rel="stylesheet" type="text/css" href="../../resource/Web/css/login.css" media="all"/>
+		<link rel="stylesheet" type="text/css" href="../../resource/Web/css/avatar.css" media="all">
+		<script src="../../resource/Web/js/jquery.js" type="text/javascript"></script>
+
+		<link rel="stylesheet" type="text/css" href="../../resource/Web/css/jquery.Jcrop.min.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../resource/Web/js/uploadify-v3.1/uploadify.css" media="all">		
+		<script type="text/javascript" src="../../resource/Web/uploadify-v3.1/jquery.uploadify-3.1.min.js"></script>
+		<script type="text/javascript" src="../../resource/Web/js/jquery.Jcrop.min.js"></script>
+
+		<script type="text/javascript" src="../../resource/ThinkBox/jquery.ThinkBox.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../resource/ThinkBox/css/ThinkBox.css" media="all">
+
+		<script type="text/javascript">
+			$(function () {
+				//上传头像(uploadify插件)
+				$("#user-pic").uploadify({
+					'queueSizeLimit': 1,
+					'removeTimeout': 0.5,
+					'preventCaching': true,
+					'multi': false,
+					'swf': '../../resource/Web/uploadify-v3.1/uploadify.swf',
+					'uploader': '/index.php/UCenter/uploadAvatar',
+					'buttonText': '<i class="userup-icon"></i>上传头像',
+					'width': '200',
+					'height': '200',
+					'fileTypeExts': '*.jpg; *.png; *.gif;',
+					'onUploadSuccess': function (file, data, response) {
+						var data = $.parseJSON(data);
+						if (data['status'] == 0) {
+							$.ThinkBox.error(data['info'], {'delayClose': 3000});
+							return;
+						}
+						var preview = $('.upload-area').children('#preview-hidden');
+						preview.show().removeClass('hidden');
+						//两个预览窗口赋值
+						$('.crop').children('img').attr('src', data['url'] + '?random=' + Math.random());
+						//隐藏表单赋值
+						$('#img_src').val(data['url']);
+						$('#picName').val(data['picName']);
+						//绑定需要裁剪的图片
+						var img = $('<img />');
+						preview.append(img);
+						preview.children('img').attr('src', data['url'] + '?random=' + Math.random());
+						var crop_img = preview.children('img');
+						crop_img.attr('id', "cropbox").show();
+						var img = new Image();
+						img.src = data['url'] + '?random=' + Math.random();
+						//根据图片大小在画布里居中
+						img.onload = function () {
+							var img_height = 0;
+							var img_width = 0;
+							var real_height = img.height;
+							var real_width = img.width;
+							if (real_height > real_width && real_height > 200) {
+								var persent = real_height / 200;
+								real_height = 200;
+								real_width = real_width / persent;
+							} else if (real_width > real_height && real_width > 200) {
+								var persent = real_width / 200;
+								real_width = 200;
+								real_height = real_height / persent;
+							}
+							if (real_height < 200) {
+								img_height = (200 - real_height) / 2;
+							}
+							if (real_width < 200) {
+								img_width = (200 - real_width) / 2;
+							}
+							preview.css({width: (200 - img_width) + 'px', height: (200 - img_height) + 'px'});
+							preview.css({paddingTop: img_height + 'px', paddingLeft: img_width + 'px'});
+						}
+						//裁剪插件
+						$('#cropbox').Jcrop({
+							bgColor: '#333', //选区背景色
+							bgFade: true, //选区背景渐显
+							fadeTime: 1000, //背景渐显时间
+							allowSelect: false, //是否可以选区，
+							allowResize: true, //是否可以调整选区大小
+							aspectRatio: 1, //约束比例
+							minSize: [200, 200], //可选最小大小
+							boxWidth: 200, //画布宽度
+							boxHeight: 200, //画布高度
+							onChange: showPreview, //改变时重置预览图
+							onSelect: showPreview, //选择时重置预览图
+							setSelect: [0, 0, 500, 500], //初始化时位置
+							onSelect: function (c) {	//选择时动态赋值，该值是最终传给程序的参数！
+								$('#x').val(c.x);//需裁剪的左上角X轴坐标
+								$('#y').val(c.y);//需裁剪的左上角Y轴坐标
+								$('#w').val(c.w);//需裁剪的宽度
+								$('#h').val(c.h);//需裁剪的高度
+							}
+						});
+						//提交裁剪好的图片
+						$('.save-pic').click(function () {
+							if ($('#preview-hidden').html() == '') {
+								$.ThinkBox.error('请先上传图片！');
+							} else {
+								//由于GD库裁剪gif图片很慢，所以长时间显示弹出框
+								$.ThinkBox.success('图片处理中，请稍候……', {'delayClose': 30000});
+								$('#pic').submit();
+							}
+						});
+						//重新上传,清空裁剪参数
+						var i = 0;
+						$('.reupload-img').click(function () {
+							$('#preview-hidden').find('*').remove();
+							$('#preview-hidden').hide().addClass('hidden').css({'padding-top': 0, 'padding-left': 0});
+						});
+					}
+				});
+				//预览图
+				function showPreview(coords) {
+					var img_width = $('#cropbox').width();
+					var img_height = $('#cropbox').height();
+					//根据包裹的容器宽高,设置被除数
+					var rx = 100 / coords.w;
+					var ry = 100 / coords.h;
+					$('#crop-preview-100').css({
+						width: Math.round(rx * img_width) + 'px',
+						height: Math.round(ry * img_height) + 'px',
+						marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+						marginTop: '-' + Math.round(ry * coords.y) + 'px'
+					});
+					var rx = 60 / coords.w;
+					var ry = 60 / coords.h;
+					$('#crop-preview-60').css({
+						width: Math.round(rx * img_width) + 'px',
+						height: Math.round(ry * img_height) + 'px',
+						marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+						marginTop: '-' + Math.round(ry * coords.y) + 'px'
+					});
+					var rx = 30 / coords.w;
+					var ry = 30 / coords.h;
+					$('#crop-preview-30').css({
+						width: Math.round(rx * img_width) + 'px',
+						height: Math.round(ry * img_height) + 'px',
+						marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+						marginTop: '-' + Math.round(ry * coords.y) + 'px'
+					});
+				}
+			});
+
+		</script>
+	</head>
+
+	<body>
+	
+	<form name="chpwd-dialog-form" id="chpwd-dialog-form" action="/index.php/UCenter/chpwd.html" method="post">
+		<div class="quan" id="chpwd-dialog-mask"></div>
+		<div class="loginkuang" id="chpwd-dialog">
+			<a class="exit" href="javascript:void(0);" action="closechpwd">×</a>
+			<ul>
+				<li class="logintitle">修改密码</li>
+				<li><input name="oldpassword" type="password" placeholder="原始密码" /></li>
+				<li><input name="password" type="password" placeholder="新的登录密码" /></li>
+				<li><input name="repassword" type="password" placeholder="请再输入一次新密码" /></li>
+				<li>
+					<input class="denglu" type="button" action="chpwdDialogSubmit" value="提&nbsp;交" />
+					<div id="dialog-chpwd-form-message" class="form-validator-error" style="display: none"></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+
+	<script>
+		$(function () {
+			$('*[action="chpwd"]').click(function () {
+				$('#chpwd-dialog').show();
+				$('#chpwd-dialog-mask').show().height($('body').height());
+			});
+			$('*[action="closechpwd"]').click(function () {
+				$('#chpwd-dialog').hide();
+				$('#chpwd-dialog-mask').hide();
+			});
+			$('*[action="chpwdDialogSubmit"]').click(function () {
+				var oldpassword = $("#chpwd-dialog-form").find('input[name="oldpassword"]').val();
+				var password = $("#chpwd-dialog-form").find('input[name="password"]').val();
+				var repassword = $("#chpwd-dialog-form").find('input[name="repassword"]').val();
+				if (oldpassword === "") {
+					$("#dialog-chpwd-form-message").html("原始密码不能为空！").show();
+					return false;
+				}
+				if (password === "") {
+					$("#dialog-chpwd-form-message").html("新的登录密码不能为空！").show();
+					return false;
+				}
+				if (repassword === "" || repassword !== password) {
+					$("#dialog-chpwd-form-message").html("确认密码与新密码不一致！").show();
+					return false;
+				}
+				$.ajax({
+					type: "post",
+					data: {'oldpassword': oldpassword, 'repassword': repassword, 'password': password},
+					url: "/index.php/UCenter/chpwd.html",
+					dataType: "json",
+					success: function (json) {
+						if (json.state) {
+							window.location.reload();
+						} else {
+							$("#dialog-chpwd-form-message").html(json.message).show();
+						}
+					}
+				});
+			});
+
+		});
+	</script>
+
+<div class="header">
+	<div class="nav">
+		<div class="logo"><a href="/"><img src="../../resource/Web/images/logo.png" width="147"></a></div>
+		<div class="form left">
+			<a href="/" >首页</a>
+			<a href="/index.php/Project/index.html" >项目浏览</a>
+			<a href="/index.php/Recruit/index.html" >招募队友</a>
+			<a href="/index.php/UCenter/resume.html" class="current">个人简历</a>
+						</div>
+		<div class="nav-right right">
+			<div class="login right">
+				
+					<div class="top-admin">
+						<span class="uc-hello">您好，</span>
+						<ul>
+							<li class="login-info login-info-hover-action" id="login-info">
+								<p class="top-wbico">&nbsp;</p>
+								<a href="/index.php/UCenter/index.html" class="uc-admin-name"><span>1191641113@qq.com</span></a>
+								<div class="clear"></div>
+							</li>
+						</ul>
+						<div class="login-info-box login-info-hover-action" id="login-info-box">
+							<a href="/index.php/UCenter/avatar.html" class="uc-admin"><img src="../../avatar/2015/04/12/552a16f00105d.jpg" height="56" width="56" alt="" /></a>
+							<div class="t-img">
+								<p>牛人邦账号：1191641113@qq.com</p>
+								<a href="javascript:;" action="chpwd" class="uc-change">修改密码</a>
+								<a href="/index.php/UCenter/logout.html" class="uc-manage">退出</a>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</div>
+					<script>
+						$(document).ready(function () {
+							$(".login-info-hover-action").hover(
+									function () {
+										$("#login-info").addClass('login-info-hover');
+										$("#login-info-box").show();
+									},
+									function () {
+										$("#login-info").removeClass('login-info-hover');
+										$("#login-info-box").hide();
+									}
+							);
+						});
+						function EnterPress() {
+							if (event.keyCode === 13) {
+								window.location.href = "/index.php/Project/index/key/" + $("#searchkeybox").val();
+//								alert($("#searchkeybox").val());
+							}
+						}
+					</script>				<div class="clear"></div>
+			</div>
+
+			<div class="search right">
+				<input type="text" value="" id="searchkeybox" placeholder="输入您要查找的内容" onkeypress="EnterPress()" onkeydown="EnterPress()" />
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+	<div class="main">
+		<!-- 修改头像 -->
+		<form action="/index.php/UCenter/cropAvatar" method="post" id="pic" class="update-pic cf">
+			<div class="upload-area">
+				<input type="file" id="user-pic">
+				<div class="file-tips">支持JPG,PNG,GIF，图片小于1MB，尺寸不小于100*100,真实高清头像更受欢迎！</div>
+				<div class="preview hidden" id="preview-hidden"></div>
+			</div>
+			<div class="preview-area">
+				<input type="hidden" id="x" name="x" />
+				<input type="hidden>头像预览<" id="y" name="y" />
+				<input type="hidden" id="w" name="w" />
+				<input type="hidden" id="h" name="h" />
+				<input type="hidden" id='img_src' name='src'/>
+				<input type="hidden" id='picName' name='picName'/>
+				<div class="tcrop">头像预览</div>
+				<div class="crop crop100"><img id="crop-preview-100" src="" alt=""></div>
+				<div class="crop crop60"><img id="crop-preview-60" src="" alt=""></div>
+				<div class="crop crop30"><img id="crop-preview-30" src="" alt=""></div>
+				<div style="clear: both"></div>
+				<a class="uppic-btn save-pic" href="javascript:;">保存</a>
+				<a class="ppic-btn reupload-img" href="javascript:$('#user-pic').uploadify('cancel','*');">重新上传</a>
+			</div>
+		</form>
+
+		<!-- /修改头像 -->
+	</div>
+	<div class="footer">
+	<div class="bot">
+		<p>
+		 <a href="/index.php../../resource/help/id/1.html">关于我们</a>| <a href="/index.php../../resource/help/id/5.html">联系我们</a>| <a href="/index.php../../resource/help/id/6.html">服务协议</a>| <a href="/index.php../../resource/help/id/7.html">项目发起规范</a>| <a href="/index.php../../resource/help/id/8.html">新手帮助</a>| <a href="/index.php../../resource/help/id/9.html">帮助中心</a>| <a href="/index.php../../resource/help/id/19.html">创业资源池</a>		</p>
+		<p>
+			帮助创业者建立联系 ©2014 京ICP备13045110号
+			<!--技术支持：<a href="#">中亿智企云</a>-->
+		</p>
+		<ul>
+			<li class="bot-sina"><a href="#"><em></em>新浪微博</a></li>
+			<li class="bot-weixin"><a href="#"><em></em>腾讯微信</a></li>
+			<li class="bot-baidu"><a href="#"><em></em>百度百科</a></li>
+			<li class="bot-qq"><a href="#"><em></em>QQ交谈</a></li>
+		</ul>
+		<div class="clear"></div>
+		<div class="ewm">
+			<img src="../../resource/Web/images/ewm.jpg" />
+			扫一扫关注我们
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

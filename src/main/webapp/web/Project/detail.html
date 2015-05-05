@@ -1,0 +1,521 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>长理e哥-大学生创业,从找合伙人开始|牛人邦</title>
+<meta name="description"
+	content="小梦想 聚合大能量。在这里，你结识到的不仅是创业团队，更是一起实现梦想的同行伙伴。在这里，你邂逅的不止是创意灵感，更是聚合力量共同奋斗的精彩。牛人邦，蓄势待发，虚位以待！ " />
+<meta name="keywords" content="牛人邦 大学生创业 创业 创业合伙人 创业项目" />
+<link href="../../resource/Web/css/style.css" rel="stylesheet"
+	type="text/css" />
+<link href="../../resource/Web/css/login.css" rel="stylesheet"
+	type="text/css" />
+<script src="../../resource/Web/js/jquery.js" type="text/javascript"></script>
+
+<script type="text/javascript"
+	src="../../resource/ThinkBox/jquery.ThinkBox.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../resource/ThinkBox/css/ThinkBox.css" media="all" />
+<script type="text/javascript">
+	(function($) {
+		$.fn.extend({
+			"jTab" : function(o) {
+				o = $.extend({
+					menutag : "", //选项卡按钮标签
+					boxtag : "", //选项卡内容标签
+					cur : 0, //选项卡的默认索引值
+					act : "mouseover", //事情触发的默认事件可以是"click"
+					fade : 0, //淡入的时间
+					auto : false, //false,true表示开关定时器
+					autoTime : 3000
+				//定时执行的时间
+				}, o);
+				$(o.menutag).eq(0).addClass("cur");
+				$(o.boxtag).eq(0).siblings().hide();
+				$(o.menutag).bind(o.act, function() {
+					index = $(o.menutag).index(this);
+					$(this).addClass("cur").siblings().removeClass("cur");
+					$(o.boxtag).eq(index).show(o.fade).siblings().hide();
+				});
+			}
+		});
+	})(jQuery);
+
+	$(function() {
+		var ajaxLoadComment = function(url) {
+			$.ajax({
+				url : url,
+				dataType : "text",
+				success : function(text) {
+					$("#comment-con").html(text);
+					$(".paginator").find('a').click(function() {
+						ajaxLoadComment($(this).attr('href'));
+						return false;
+					});
+					$(function($) {
+						$(".subreply").click(
+								function() {
+									$(this).closest("div").find('.reply-box')
+											.slideToggle();
+									return false;
+								});
+					});
+				}
+			});
+		};
+		ajaxLoadComment("/index.php/Project/ajax_load_comment/project_id/167.html");
+		$(".tab").jTab({
+			menutag : ".tab-m>li",
+			boxtag : ".tab-box>div",
+			cur : 0,
+			act : "click",
+			fade : 0,
+			auto : false,
+			autoTime : 3000
+		});
+		$('.send-resume')
+				.click(
+						function() {
+							$
+									.ajax({
+										url : "/index.php/Project/send_resume/project_id/167/type/1.html",
+										dataType : "json",
+										success : function(json) {
+											if (json.state === 1) {
+												$.ThinkBox.success(
+														json.message, {
+															'delayClose' : 1000
+														});
+											} else {
+												if (json.state === 3) {
+													$('#login-dialog').show();
+													$('#login-dialog-mask')
+															.show()
+															.height(
+																	$('body')
+																			.height());
+												} else {
+													$.ThinkBox
+															.error(
+																	json.message,
+																	{
+																		'delayClose' : 1000
+																	});
+												}
+											}
+										}
+									});
+						});
+
+		$('#submit-comment')
+				.click(
+						function() {
+							var text = $("#text-comment").val();
+							if (text === "") {
+								$.ThinkBox.error("评论内容不能为空!", {
+									'delayClose' : 1000
+								});
+								return false;
+							}
+							$
+									.ajax({
+										type : "post",
+										url : "/index.php/Project/submit_comment.html",
+										data : {
+											'text' : text,
+											'project_id' : '167'
+										},
+										dataType : "json",
+										success : function(json) {
+											if (json.state === 1) {
+												$("#text-comment").val('');
+												ajaxLoadComment("/index.php/Project/ajax_load_comment/project_id/167.html");
+												$.ThinkBox.success(
+														json.message, {
+															'delayClose' : 1000
+														});
+											} else {
+												if (json.state === 3) {
+													$('#login-dialog').show();
+													$('#login-dialog-mask')
+															.show()
+															.height(
+																	$('body')
+																			.height());
+												} else {
+													$.ThinkBox
+															.error(
+																	json.message,
+																	{
+																		'delayClose' : 1000
+																	});
+												}
+											}
+										}
+									});
+						});
+	});
+</script>
+</head>
+
+<body>
+	<!--登录-->
+	<form name="login-dialog-form" id="login-dialog-form"
+		action="/index.php/Index/do_login.html" method="post">
+		<div class="quan" id="login-dialog-mask"></div>
+		<div class="loginkuang" id="login-dialog">
+			<a class="exit" href="javascript:void(0);" action="closelogin">×</a>
+			<ul>
+				<li class="logintitle">登&nbsp;录</li>
+				<li><input name="email" type="text" placeholder="请输入邮箱" /></li>
+				<li><input name="password" type="password" placeholder="请输入密码" /></li>
+				<li style="margin-top:10px;"><a href="">忘记密码?</a></li>
+				<li><input class="denglu" type="button" action="dialogSubmit"
+					value="登&nbsp;录" />
+					<div id="dialog-login-form-message" class="form-validator-error"
+						style="display: none"></div></li>
+			</ul>
+			<p>
+				还没有账号?<a href="/index.php/Register/index.html">立即注册</a>
+			</p>
+		</div>
+	</form>
+	<script>
+		$(function() {
+			$('*[action="login"]').click(function() {
+				$('#login-dialog').show();
+				$('#login-dialog-mask').show().height($('body').height());
+				return false;
+			});
+			$('*[action="closelogin"]').click(function() {
+				$('#login-dialog').hide();
+				$('#login-dialog-mask').hide();
+				return false;
+			});
+			$('*[action="dialogSubmit"]')
+					.click(
+							function() {
+								var email = $("#login-dialog-form").find(
+										'input[name="email"]').val();
+								var password = $("#login-dialog-form").find(
+										'input[name="password"]').val();
+								if (email === "") {
+									$("#dialog-login-form-message").html(
+											"登录邮箱不能为空！").show();
+									return false;
+								}
+								var emailFilter = /^([_A-Za-z0-9-])+@(([A-Za-z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+								if (!emailFilter.test(email)) {
+									$("#dialog-login-form-message").html(
+											"登录邮箱格式不正确！").show();
+									return false;
+								}
+								if (password === "") {
+									$("#dialog-login-form-message").html(
+											"登录密码不能为空！").show();
+									return false;
+								}
+								$
+										.ajax({
+											type : "post",
+											data : {
+												'email' : email,
+												'password' : password
+											},
+											url : "/index.php/Index/do_login.html",
+											dataType : "json",
+											success : function(json) {
+												if (json.state) {
+													window.location.href = "/index.php/UCenter/index.html";
+												} else {
+													$(
+															"#dialog-login-form-message")
+															.html(json.message)
+															.show();
+												}
+											}
+										});
+							});
+
+		});
+	</script>
+	<!--登录-->
+
+
+	<div class="header">
+		<div class="nav">
+			<div class="logo">
+				<a href="/"><img src="../../resource/Web/images/logo.png"
+					width="147"></a>
+			</div>
+			<div class="form left">
+				<a href="/">首页</a> <a href="/index.php/Project/index.html"
+					class="current">项目浏览</a> <a href="/index.php/Recruit/index.html">招募队友</a>
+				<a href="/index.php/UCenter/resume.html">个人简历</a>
+			</div>
+			<div class="nav-right right">
+				<div class="login right">
+					<a href="javascript:void(0);" action="login">登录</a> <a
+						href="/index.php/Register/index.html">注册</a> <a
+						href="/index.php/UCenter/publish_project.html" class="publish">发布项目</a>
+
+					<div class="clear"></div>
+				</div>
+
+				<div class="search right">
+					<input type="text" value="" id="searchkeybox"
+						placeholder="输入您要查找的内容" onkeypress="EnterPress()"
+						onkeydown="EnterPress()" />
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="contain">
+		<div class="introduction">
+			<div class="intro-left left">
+				<div class="tab">
+					<div id="Js-nav" class="tab-1">
+						<div class="bdsharebuttonbox">
+							<a href="#" class="bds_more" data-cmd="more"></a><a href="#"
+								class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a
+								href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a
+								href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a
+								href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a
+								class="bds_count" data-cmd="count"></a>
+						</div>
+						<script>
+							window._bd_share_config = {
+								"common" : {
+									"bdSnsKey" : {},
+									"bdText" : "",
+									"bdMini" : "2",
+									"bdMiniList" : false,
+									"bdPic" : "",
+									"bdStyle" : "0",
+									"bdSize" : "16"
+								},
+								"share" : {}
+							};
+							with (document)
+								0[(getElementsByTagName('head')[0] || body)
+										.appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='
+										+ ~(-new Date() / 36e5)];
+						</script>
+						<ul class="tab-m">
+							<li><a href="javascript:void(0)"><span>项目主页</span></a><em></em></li>
+							<li><a href="javascript:void(0)"><span>评论 ( 0 )</span></a><em></em></li>
+							<div class="clear"></div>
+						</ul>
+					</div>
+					<div class="tab-box">
+						<div class="thfnxw">
+							<div class="intro-top">
+								<a href="#" class="left"><img
+									src="../../avatar/2015/04/13/552bd3ce42f65.jpg" height="124"
+									width="124" /></a>
+								<div class="intro-t-r right">
+									<h3>长理e哥</h3>
+									<span>发起人：罗宁</span>
+									<p style="font-size: 18px;">提供特色跑腿服务的小二</p>
+									<br />
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="about-team">
+								<div class="intro-h2-1">
+									<h2>关于团队</h2>
+								</div>
+								<p>
+									<span style="font-size:16px;"><span>团队组建时期有3人</span></span>
+								</p>
+								<p>
+									<span style="font-size:16px;"><span>现在由于各种原因只剩一人，</span></span>
+								</p>
+								<p>
+									<span style="font-size:16px;"><span>欢迎各路大神的加入</span></span>
+								</p>
+							</div>
+							<div class="about-team border-t mt50">
+								<div class="intro-h2-2">
+									<h2>项目简介</h2>
+								</div>
+								<p class="MsoNormal">
+									<span style="font-family:'Microsoft YaHei';font-size:16px;">长理e哥，主要是为各位亲提供手机快件，代买零食、水果，代送男、女朋友礼物等特色服务的跑腿小二。</span>
+								</p>
+								<p class="MsoNormal">
+									<span style="font-family:'Microsoft YaHei';font-size:16px;">首先，感谢大家这段时间以来对我们的支持！我们的宗旨是能让我们的每一位客户都享受到令您满意的服务！我们属于创业型团队，刚刚起步。在前期，我们有首单全免活动！</span>
+								</p>
+								<p class="MsoNormal">
+									<img
+										src="../../Uploads/image/20150413/20150413223537_22692.png"
+										alt="" />&nbsp;
+								</p>
+								<p class="MsoNormal">
+									<span style="font-family:'Microsoft YaHei';font-size:16px;">这是我们位于美团外卖的商铺，亲们可以通过这里下单。免首单具体细节如下：</span>
+								</p>
+								<p class="MsoNormal">
+									<span style="font-family:'Microsoft YaHei';font-size:16px;">&nbsp;</span>
+								</p>
+								<p class="MsoNormal">
+									<span style="font-family:'Microsoft YaHei';font-size:16px;">在活动期间，关注我们的微信公众号：changliege,也可以扫二维码加关注，这是我们的二维码：</span>
+								</p>
+								<p class="MsoNormal">
+									<img
+										src="../../Uploads/image/20150413/20150413223556_31149.png"
+										alt="" />&nbsp;
+								</p>
+								<p class="MsoNormal">
+									<span style="font-size:16px;font-family:'Microsoft YaHei';">通过公众号中的链接下单，或者用app下单，要截图发到公众平台予以确认.</span>
+								</p>
+								<p class="MsoNormal">
+									<span style="font-size:16px;font-family:'Microsoft YaHei';">首单用户必须满足：在活动期间下单，且是首次下单.</span>
+								</p>
+								<p class="MsoNormal">
+									<span style="font-size:16px;font-family:'Microsoft YaHei';">我们的公告：</span>
+								</p>
+								<p class="MsoNormal">
+									<img
+										src="../../Uploads/image/20150413/20150413223612_38467.png"
+										alt="" />
+								</p>
+							</div>
+							<div class="about-team border-t mt50">
+								<div class="intro-h2-5">
+									<h2>团队情况</h2>
+								</div>
+								<p style="font-size: 18px;">团队人数：1人，其中全职人数：1人</p>
+							</div>
+							<div class="about-team border-t mt50">
+								<div class="intro-h2-6">
+									<h2>项目阶段</h2>
+								</div>
+								<p style="font-size: 18px;">上线运营</p>
+							</div>
+							<!--<div class="about-team border-t mt50">
+									<div class="intro-h2-7">
+										<h2>产品图片</h2>
+									</div>
+									<p>Idea/项目开发/产品运营。</p>
+									<div class="scrolllist" id="s1">
+										<a class="abtn aleft" href="#left" title="左移"></a>
+										<div class="imglist_w">
+											<ul class="imglist">
+												<li><a href="#"><img src="../../resource/Web/images/info_pic5.jpg" width="804" height="453" alt="" /></a></li>
+												<li><a href="#"><img src="../../resource/Web/images/info_pic5.jpg" width="804" height="453" alt="" /></a></li>
+												<li><a href="#"><img src="../../resource/Web/images/info_pic5.jpg" width="804" height="453" alt="" /></a></li>
+												<li><a href="#"><img src="../../resource/Web/images/info_pic5.jpg" width="804" height="453" alt="" /></a></li>
+											</ul>
+										</div>
+										<a class="abtn aright" href="#right" title="右移"></a>
+									</div>
+								</div>-->
+							<div class="about-team border-t mt50">
+								<div class="intro-h2-8">
+									<h2>召唤合伙人</h2>
+								</div>
+								<!--<p>致力于本地生活O2O创业的伙伴，不能错过。加入猫屋小时达，创业团队执行力强、组织架构高度扁平、项目势头良好，一起“剩者为王”！</p>-->
+								<div class="summon-con">
+									<ul class="partner">
+										<li class="current"><a>运营合伙人<span>召唤中</span></a></li>
+										<span></span>
+										<div class="clear"></div>
+									</ul>
+								</div>
+							</div>
+							<div class="about-team border-t mt50">
+								<div class="intro-h2-9">
+									<h2>我的期冀</h2>
+								</div>
+								<p>
+									<span style="font-family:Microsoft YaHei;"><span
+										style="font-size:16px;">对于加入的合伙人</span></span>
+								</p>
+								<p>
+									<span><span style="font-size:16px;line-height:24px;">我们目前盈利均分</span></span>
+								</p>
+								<p>
+									<span><span style="font-size:16px;line-height:24px;">股权面谈</span></span>
+								</p>
+							</div>
+							<a href="javascript:;" class="contact-founder send-resume">投递简历</a>
+						</div>
+						<div class="thfnxw">
+							<div class="comment">
+								<textarea name="text-comment" id="text-comment"></textarea>
+								<a href="javascript:;" class="upload-img"> <input name=""
+									type="button" />
+								</a> <input name="submit" type="button" id="submit-comment"
+									class="reply" value="发表回复" />
+								<div class="clear"></div>
+							</div>
+							<div class="comment-list">
+								<div class="comment-list-top">
+									<a href="#" class="current">全部</a> <a href="#">只看发起人</a>
+								</div>
+								<div class="comment-con" id="comment-con"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="intro-right right">
+				<div id="Js-rightside" class="intro-right-con">
+					<div class="intro-r-con">
+						<h2>创始人信息</h2>
+						<div class="admin-name">
+							<img src="../../avatar/2015/04/13/552bd3a9a0f6b.jpg" width="92"
+								height="92" /> <a href="javascript:;">罗宁</a>
+						</div>
+						<div class="info-demand">
+							<h3>项目需求：</h3>
+							<p>运营合伙人</p>
+						</div>
+						<div class="info-intro">
+							<h3>项目地点：</h3>
+							<p>湖南 , 长沙</p>
+						</div>
+						<div class="info-intro">
+							<h3>项目介绍：</h3>
+							<p>提供特色跑腿服务的小二</p>
+						</div>
+					</div>
+					<a href="javascript:;" class="delivery send-resume">马上投递简历</a>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="footer">
+		<div class="bot">
+			<p>
+				<a href="/index.php../../resource/help/id/1.html">关于我们</a>| <a
+					href="/index.php../../resource/help/id/5.html">联系我们</a>| <a
+					href="/index.php../../resource/help/id/6.html">服务协议</a>| <a
+					href="/index.php../../resource/help/id/7.html">项目发起规范</a>| <a
+					href="/index.php../../resource/help/id/8.html">新手帮助</a>| <a
+					href="/index.php../../resource/help/id/9.html">帮助中心</a>| <a
+					href="/index.php../../resource/help/id/19.html">创业资源池</a>
+			</p>
+			<p>
+				帮助创业者建立联系 ©2014 京ICP备13045110号
+				<!--技术支持：<a href="#">中亿智企云</a>-->
+			</p>
+			<ul>
+				<li class="bot-sina"><a href="#"><em></em>新浪微博</a></li>
+				<li class="bot-weixin"><a href="#"><em></em>腾讯微信</a></li>
+				<li class="bot-baidu"><a href="#"><em></em>百度百科</a></li>
+				<li class="bot-qq"><a href="#"><em></em>QQ交谈</a></li>
+			</ul>
+			<div class="clear"></div>
+			<div class="ewm">
+				<img src="../../resource/Web/images/ewm.jpg" /> 扫一扫关注我们
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript"
+		src="../../resource/Web/js/right_slider.js"></script>
+</body>
+</html>

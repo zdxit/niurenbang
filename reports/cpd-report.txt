@@ -1,0 +1,894 @@
+Found a 25 line (115 tokens) duplication in the following files: 
+Starting at line 57 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/ProjectServiceImpl.java
+Starting at line 244 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/MemberServiceImpl.java
+
+				addOrRemoveSessionAttribute(multipartRequest, avatarPath, "headImg","avatar/");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("图像文件存储失败");
+				data=new FileData("", 0, "写入文件失败","");
+			}
+		}
+		
+		//更新数据库
+//		update(member);
+		
+		return data;
+	}
+
+	private void addOrRemoveSessionAttribute(
+			MultipartHttpServletRequest multipartRequest, String avatarPath,
+			String item,String bfPath ) {
+		String sessionHeadImg = (String) multipartRequest.getSession().getAttribute(item);
+		if(sessionHeadImg!=null){
+			String oldPath = multipartRequest.getSession().getServletContext()
+					.getRealPath(bfPath + sessionHeadImg);
+			imageUtil.removePic(oldPath);
+		}
+		multipartRequest.getSession().setAttribute(item, avatarPath);
+=====================================================================
+Found a 25 line (106 tokens) duplication in the following files: 
+Starting at line 36 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/ProjectServiceImpl.java
+Starting at line 217 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/MemberServiceImpl.java
+
+				.getRealPath("avatar/" + headImg);
+		
+	
+		if (multipartFile == null) {
+			data=new FileData("default/icon.jpg", 0, "未上传成功","");
+		} else {
+			//获得上传文件名
+			fileName = multipartFile.getOriginalFilename();
+			//获取后缀名
+			String suffix = fileName.substring(fileName.lastIndexOf("."));
+			//得到要存储的文件名
+			Date date=new Date();
+			String logImageName = date.getTime() + suffix;
+			
+			//设置member的头像路径以存在于数据库中
+			String avatarPath = headImg + File.separator + logImageName;
+
+			//设置文件存储路径
+			fileName = realPath + File.separator + logImageName;
+			File restore = new File(fileName);
+			try {
+				//存储文件
+				CoreUtil.copy(multipartFile, restore);
+				//创建返回对象
+				data=new FileData(avatarPath, 1, "success",logImageName);
+=====================================================================
+Found a 15 line (72 tokens) duplication in the following files: 
+Starting at line 49 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/User.java
+Starting at line 57 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+        this.email = email;
+        this.pwd = pwd;
+        this.mtype = mtype;
+        this.regIp = regIp;
+        this.regDate = regDate;
+        this.trueName = trueName;
+        this.sex = sex;
+        this.age = age;
+        this.schoolName = schoolName;
+        this.province = province;
+        this.city = city;
+        this.mobile = mobile;
+        this.telphone = telphone;
+        this.icqNum = icqNum;
+        this.memberRoleId = memberRoleId;
+=====================================================================
+Found a 22 line (67 tokens) duplication in the following files: 
+Starting at line 39 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/util/CoreUtil.java
+Starting at line 89 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/util/CoreUtil.java
+
+			FileOutputStream fos = new FileOutputStream(outFile);
+
+			// 声明个Byte数组用于存放数据
+
+			byte[] bt = new byte[1024];
+
+			int hasNext = 1;
+			// 考虑到数组的长度限制问题，我们不能讲文件中的数据一次性读入或者读出，所以这里我们使用循环处理
+			while (hasNext != -1) {
+
+				hasNext = fis.read(bt);
+				fos.write(bt);
+
+			}
+			fos.flush();
+			fos.close();
+			fis.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+=====================================================================
+Found a 19 line (63 tokens) duplication in the following files: 
+Starting at line 11 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/BaseService.java
+Starting at line 11 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/BaseDao.java
+
+	public T update(T t);
+
+	public void delete(T t);
+
+	public void deleteById(Integer id);
+
+	public void deleteById(Short id);
+
+	public void deleteById(Long id);
+
+	public T getById(Integer id);
+
+	public T getById(Short id);
+
+	public T getById(Long id);
+
+	public List<T> findAll();
+
+	public T merge(T t);
+=====================================================================
+Found a 10 line (63 tokens) duplication in the following files: 
+Starting at line 58 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/controller/SetController.java
+Starting at line 75 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/controller/ProjectController.java
+
+	@RequestMapping("/upload/icon")
+	public FileData uploadFile(HttpServletRequest request) {
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		MultipartFile multipartFile = null;
+		for (Map.Entry<String, MultipartFile> set : fileMap.entrySet()) {
+			multipartFile = set.getValue();
+		}
+
+		FileData data = projectService.storeHeadImg(multipartRequest,
+=====================================================================
+Found a 32 line (62 tokens) duplication in the following files: 
+Starting at line 27 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectProgressType.java
+Starting at line 27 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectIndustryType.java
+
+    public ProjectIndustryType(String name) {
+        this.name = name;
+    }
+
+   
+    // Property accessors
+
+    public Long getId() {
+        return this.id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+   
+
+
+
+
+
+
+
+
+}
+=====================================================================
+Found a 14 line (56 tokens) duplication in the following files: 
+Starting at line 298 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+Starting at line 311 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+
+	public void deleteById(Long id) {
+		log.debug("deleting  " + clazz.getSimpleName() + " instance with id: "
+				+ id);
+		try {
+			hibernateTemplate.delete(hibernateTemplate.get(clazz, id));
+		} catch (RuntimeException re) {
+			log.error("delete failed", re);
+			throw re;
+		}
+
+	}
+
+	@Override
+	public T getById(Short id) {
+=====================================================================
+Found a 13 line (54 tokens) duplication in the following files: 
+Starting at line 128 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+Starting at line 298 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+
+	public void deleteById(Short id) {
+		log.debug("deleting  " + clazz.getSimpleName() + " instance with id: "
+				+ id);
+		try {
+			hibernateTemplate.delete(hibernateTemplate.get(clazz, id));
+		} catch (RuntimeException re) {
+			log.error("delete failed", re);
+			throw re;
+		}
+
+	}
+
+	@Override
+=====================================================================
+Found a 13 line (54 tokens) duplication in the following files: 
+Starting at line 89 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+Starting at line 324 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+
+	public T getById(Short id) {
+		log.debug("getting  " + clazz.getSimpleName() + " instance with id: "
+				+ id);
+		try {
+			T t = hibernateTemplate.get(clazz, id);
+			return t;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+
+	@Override
+=====================================================================
+Found a 11 line (53 tokens) duplication in the following files: 
+Starting at line 89 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+Starting at line 337 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/impl/BaseDaoImpl.java
+
+	public T getById(Long id) {
+		log.debug("getting  " + clazz.getSimpleName() + " instance with id: "
+				+ id);
+		try {
+			T t = hibernateTemplate.get(clazz, id);
+			return t;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+=====================================================================
+Found a 19 line (52 tokens) duplication in the following files: 
+Starting at line 89 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+Starting at line 60 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Admin.java
+
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPwd() {
+        return this.pwd;
+    }
+    
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public Integer getStatus() {
+=====================================================================
+Found a 6 line (51 tokens) duplication in the following files: 
+Starting at line 14 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/util/CoreUtil.java
+Starting at line 23 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/util/CoreUtil.java
+
+	public static String getPathByDate() {
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		String filePath = year +""+ month+"" +  day;
+=====================================================================
+Found a 11 line (47 tokens) duplication in the following files: 
+Starting at line 33 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/BaseService.java
+Starting at line 37 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/BaseDao.java
+
+			final int length);
+
+	List<T> findByProperty(String propertyName, Object value);
+
+	Object findObjectBySql(String sql, Object... params);
+
+	List<T> getListByHQL(String hql, Object... params);
+
+	void executeHqlForUpdate(String hql, Object... params);
+
+}
+=====================================================================
+Found a 1 line (42 tokens) duplication in the following files: 
+Starting at line 309 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/webapp/resource/Min/lib/Minify/YUI/CssCompressor.java
+Starting at line 321 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/webapp/resource/Min/lib/Minify/YUI/CssCompressor.java
+
+        			sb.append("#" + (m.group(2) + m.group(3) + m.group(4) + m.group(5) + m.group(6) + m.group(7)).toLowerCase());
+=====================================================================
+Found a 13 line (38 tokens) duplication in the following files: 
+Starting at line 64 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/User.java
+Starting at line 72 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+        this.preAchieve = preAchieve;
+        this.hopeIndustryType = hopeIndustryType;
+        this.avatar = avatar;
+        this.recommend = recommend;
+        this.loginIp = loginIp;
+        this.loginTime = loginTime;
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+        return this.id;
+=====================================================================
+Found a 13 line (37 tokens) duplication in the following files: 
+Starting at line 59 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+Starting at line 92 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+
+        this.insertTime = insertTime;
+        this.status = status;
+        this.clickNumber = clickNumber;
+        this.recommend = recommend;
+        this.sortRank = sortRank;
+        this.resumeCount = resumeCount;
+        this.commentCount = commentCount;
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+=====================================================================
+Found a 21 line (35 tokens) duplication in the following files: 
+Starting at line 38 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectProgressType.java
+Starting at line 38 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/MemberRole.java
+
+    public void setId(Short id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+   
+
+
+
+
+
+
+
+
+}
+=====================================================================
+Found a 4 line (35 tokens) duplication in the following files: 
+Starting at line 256 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/webapp/resource/Min/lib/Minify/YUI/CssCompressor.java
+Starting at line 333 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/webapp/resource/Min/lib/Minify/YUI/CssCompressor.java
+
+        p = Pattern.compile("(?i)(border|border-top|border-right|border-bottom|border-right|outline|background):none(;|})");
+        m = p.matcher(css);
+        while (m.find()) {
+            m.appendReplacement(sb, m.group(1).toLowerCase() + ":0" + m.group(2));
+=====================================================================
+Found a 3 line (30 tokens) duplication in the following files: 
+Starting at line 57 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+Starting at line 69 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+
+    public Project(Integer mid, String logoPic, String title, Integer province, Integer city, String industryType, String simpleDescrip, String aboutTeam, String projectDescrip, String projectFuture, String competitiveEdge, Integer teamPeople, Integer teamFulltimePeople, Integer progressType, String webUrl, String iphoneAppUrl, String androidAppUrl, String needMemberRole, String myHope, String telNo, String qqNo, String email, Long insertTime, Boolean status, Long clickNumber, Boolean recommend, Integer sortRank, Integer resumeCount, Integer commentCount) {
+        this.mid = mid;
+        this.logoPic = logoPic;
+=====================================================================
+Found a 7 line (29 tokens) duplication in the following files: 
+Starting at line 46 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+Starting at line 56 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+    public Member(String email, String pwd, Short mtype, String regIp, Integer regDate, String trueName, Integer sex, Integer age, String schoolName, java.lang.Short province, java.lang.Short city, String mobile, String telphone, String icqNum, Short memberRoleId, String preAchieve, String hopeIndustryType, String avatar, Boolean recommend, String loginIp, Integer loginTime) {
+        this.email = email;
+        this.pwd = pwd;
+        this.mtype = mtype;
+        this.regIp = regIp;
+        this.regDate = regDate;
+        this.trueName = trueName;
+=====================================================================
+Found a 8 line (28 tokens) duplication in the following files: 
+Starting at line 27 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/BaseService.java
+Starting at line 29 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/base/BaseDao.java
+
+	public T merge(T t);
+
+	public List<T> getListForPage(final String hql, final int offset,
+			final int length);
+
+	int getCount();
+
+	List<T> getListForPage(final Criterion[] criterions, final int offset,
+=====================================================================
+Found a 14 line (28 tokens) duplication in the following files: 
+Starting at line 78 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+Starting at line 37 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Links.java
+
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+=====================================================================
+Found a 11 line (28 tokens) duplication in the following files: 
+Starting at line 158 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+Starting at line 95 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Article.java
+
+    }
+
+    public String getSimpleDescrip() {
+        return this.simpleDescrip;
+    }
+    
+    public void setSimpleDescrip(String simpleDescrip) {
+        this.simpleDescrip = simpleDescrip;
+    }
+
+    public String getText() {
+=====================================================================
+Found a 14 line (28 tokens) duplication in the following files: 
+Starting at line 41 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+Starting at line 99 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getMid() {
+=====================================================================
+Found a 11 line (28 tokens) duplication in the following files: 
+Starting at line 93 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Station.java
+Starting at line 87 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Article.java
+
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSimpleDescrip() {
+=====================================================================
+Found a 7 line (28 tokens) duplication in the following files: 
+Starting at line 259 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/webapp/resource/Min/lib/Minify/YUI/CssCompressor.java
+Starting at line 336 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/webapp/resource/Min/lib/Minify/YUI/CssCompressor.java
+
+            m.appendReplacement(sb, m.group(1).toLowerCase() + ":0" + m.group(2));
+        }
+        m.appendTail(sb);
+        css = sb.toString();
+
+        // shorter opacity IE filter
+        css = css.replaceAll("(?i)progid:DXImageTransform.Microsoft.Alpha\\(Opacity=", "alpha(opacity=");
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 310 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+Starting at line 233 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+    }
+
+    public Boolean getRecommend() {
+        return this.recommend;
+    }
+    
+    public void setRecommend(Boolean recommend) {
+        this.recommend = recommend;
+    }
+
+    public String getLoginIp() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 278 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+Starting at line 89 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPwd() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 126 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+Starting at line 87 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Article.java
+
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSimpleDescrip() {
+=====================================================================
+Found a 14 line (27 tokens) duplication in the following files: 
+Starting at line 99 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+Starting at line 78 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 84 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+Starting at line 103 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Article.java
+
+    }
+
+    public String getText() {
+        return this.text;
+    }
+    
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Integer getClick() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 60 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+Starting at line 110 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+
+    }
+
+    public Integer getMid() {
+        return this.mid;
+    }
+    
+    public void setMid(Integer mid) {
+        this.mid = mid;
+    }
+
+    public String getLogoPic() {
+=====================================================================
+Found a 14 line (27 tokens) duplication in the following files: 
+Starting at line 41 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+Starting at line 78 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+=====================================================================
+Found a 14 line (27 tokens) duplication in the following files: 
+Starting at line 29 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectProgressType.java
+Starting at line 52 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Article.java
+
+    }
+
+   
+    // Property accessors
+
+    public Long getId() {
+        return this.id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getMid() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 54 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectResume.java
+Starting at line 92 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+
+    }
+
+    public Boolean getIsRead() {
+        return this.isRead;
+    }
+    
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
+    }
+
+    public Long getInsertTime() {
+=====================================================================
+Found a 14 line (27 tokens) duplication in the following files: 
+Starting at line 35 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectResume.java
+Starting at line 41 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getPid() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 52 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Region.java
+Starting at line 56 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Links.java
+
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImg() {
+=====================================================================
+Found a 14 line (27 tokens) duplication in the following files: 
+Starting at line 33 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Region.java
+Starting at line 29 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/MemberRole.java
+
+    }
+
+   
+    // Property accessors
+
+    public Short getId() {
+        return this.id;
+    }
+    
+    public void setId(Short id) {
+        this.id = id;
+    }
+
+    public String getName() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 93 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Station.java
+Starting at line 126 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getProvince() {
+=====================================================================
+Found a 11 line (27 tokens) duplication in the following files: 
+Starting at line 69 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Station.java
+Starting at line 71 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Article.java
+
+    }
+
+    public Short getType() {
+        return this.type;
+    }
+    
+    public void setType(Short type) {
+        this.type = type;
+    }
+
+    public String getLitpic() {
+=====================================================================
+Found a 14 line (27 tokens) duplication in the following files: 
+Starting at line 58 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Station.java
+Starting at line 35 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectResume.java
+
+    }
+
+   
+    // Property accessors
+
+    public Integer getId() {
+        return this.id;
+    }
+    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Boolean getType() {
+=====================================================================
+Found a 6 line (27 tokens) duplication in the following files: 
+Starting at line 35 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Station.java
+Starting at line 47 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Station.java
+
+    public Station(Short type, Integer sender, Integer getter, String title, String content, Integer stime, Boolean isread, Boolean isreply, String reply, Integer rtime) {
+        this.type = type;
+        this.sender = sender;
+        this.getter = getter;
+        this.title = title;
+        this.content = content;
+=====================================================================
+Found a 6 line (27 tokens) duplication in the following files: 
+Starting at line 49 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/User.java
+Starting at line 47 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Member.java
+
+        this.email = email;
+        this.pwd = pwd;
+        this.mtype = mtype;
+        this.regIp = regIp;
+        this.regDate = regDate;
+        this.recommend = recommend;
+=====================================================================
+Found a 9 line (26 tokens) duplication in the following files: 
+Starting at line 80 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Links.java
+Starting at line 71 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Article.java
+
+    }
+
+    public Short getType() {
+        return this.type;
+    }
+    
+    public void setType(Short type) {
+        this.type = type;
+    }
+=====================================================================
+Found a 9 line (26 tokens) duplication in the following files: 
+Starting at line 40 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/MemberRole.java
+Starting at line 56 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Links.java
+
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+=====================================================================
+Found a 9 line (26 tokens) duplication in the following files: 
+Starting at line 100 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+Starting at line 286 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Project.java
+
+    }
+
+    public Long getInsertTime() {
+        return this.insertTime;
+    }
+    
+    public void setInsertTime(Long insertTime) {
+        this.insertTime = insertTime;
+    }
+=====================================================================
+Found a 9 line (26 tokens) duplication in the following files: 
+Starting at line 40 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectProgressType.java
+Starting at line 56 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Links.java
+
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+=====================================================================
+Found a 9 line (26 tokens) duplication in the following files: 
+Starting at line 70 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectResume.java
+Starting at line 76 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectComment.java
+
+    }
+
+    public String getProjectId() {
+        return this.projectId;
+    }
+    
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+=====================================================================
+Found a 9 line (26 tokens) duplication in the following files: 
+Starting at line 52 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Region.java
+Starting at line 40 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/ProjectProgressType.java
+
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+=====================================================================
+Found a 9 line (26 tokens) duplication in the following files: 
+Starting at line 69 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Station.java
+Starting at line 80 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/entity/Links.java
+
+    }
+
+    public Short getType() {
+        return this.type;
+    }
+    
+    public void setType(Short type) {
+        this.type = type;
+    }
+=====================================================================
+Found a 7 line (26 tokens) duplication in the following files: 
+Starting at line 27 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/ProjectServiceImpl.java
+Starting at line 208 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/MemberServiceImpl.java
+
+	@Override
+	public FileData storeHeadImg(MultipartHttpServletRequest multipartRequest,
+			MultipartFile multipartFile) {
+		
+		FileData data=null;
+		String fileName = "";
+		String headImg = CoreUtil.getFilePathByDate();
+=====================================================================
+Found a 3 line (25 tokens) duplication in the following files: 
+Starting at line 63 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/MemberServiceImpl.java
+Starting at line 92 of /home/zdx/MyEclipse/WorkSpace1/niurenbang/src/main/java/com/niuren/base/service/impl/MemberServiceImpl.java
+
+			String enPassword = md5PasswordEncoder.encodePassword(password,
+					null);
+			if (enPassword.equals(member.getPwd())) {

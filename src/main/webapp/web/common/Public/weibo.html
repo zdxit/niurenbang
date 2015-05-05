@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<include file="Public:commheader" />
+<title>官方微博-<{$Think.config.WEB_NAME}></title>
+</head>
+
+<body>
+<div id="bodyBg">
+        <!-- header start -->
+   <include file="Public:header" />
+  <!-- header end -->
+              
+              <div class="location">
+                      <i></i>
+                      当前位置:首页>
+                      <span>官方微博</span>
+              </div>
+                    
+              <!--以上是相同部分-->
+              
+                      
+              <div class="Pagmain">
+                   <div class="Pagmain_left">
+                     <include file="Public:left2"/>
+                     
+                   </div>
+                   
+                   <div class="shjs_right">
+                         <h4>官方微博:</h4>
+                         <div class="p_weibo">
+                         <volist name="wlist" id="vo">
+                         <{$vo}><div class="br"></div>
+                         </volist>
+                          </div>
+                   </div>
+              </div>
+     </div>   
+     
+     <include file="Public:footer" />
+</div> 
+</body>
+</html>

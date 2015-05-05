@@ -1,0 +1,402 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title><{$Think.config.WEB_NAME}></title>
+<meta name="description" content="<{$Think.config.WEB_DESCRIPTION}>" />
+<meta name="keywords" content="<{$Think.config.WEB_KEYWORD}>" />
+<link href="../../../resource/home/css/style.css" rel="stylesheet" type="text/css">
+<script src="../../../resource/home/js/jquery.js"></script>
+<script  src="../../../resource/home/js/jquery.SuperSlide.js"></script>
+<script src="../../../resource/home/js/js.js"></script>
+</head>
+
+<body><!--container=容器,导航内容-->
+<include file="Public:header" />
+
+    <!--banner-->
+    <div class="banner">
+<!-- Start 焦点图 -->
+<div class="index_focus">
+<a href="javascript:;" class="index_focus_pre" title="上一张">上一张</a>
+<a href="javascript:;" class="index_focus_next" title="下一张">下一张</a>
+<div class="bd">
+<ul>
+<li>
+<a href="#" class="pic" target="_blank">
+<img class="pic" src="../../../resource/home/images/banner.png" width="1600" height="600" alt=""></a>
+</li>
+
+<li>
+<a href="#" class="pic" target="_blank"><img class="pic" src="../../../resource/home/images/banner.png" width="1600" height="600" alt=""></a>
+</li>
+
+</ul>
+</div>
+<div class="slide_nav">
+<a href="javascript:;">●</a>
+<a href="javascript:;">●</a>
+</div>
+</div>
+<!-- End 焦点图 -->    
+<script type="text/javascript">
+jQuery(".index_focus").hover(function(){
+jQuery(this).find(".index_focus_pre,.index_focus_next").stop(true, true).fadeTo("show", 1)
+},function(){
+jQuery(this).find(".index_focus_pre,.index_focus_next").fadeOut()
+});
+jQuery(".index_focus").slide({
+titCell: ".slide_nav a ",
+mainCell: ".bd ul",
+delayTime: 500,
+interTime: 3500,
+prevCell:".index_focus_pre",
+nextCell:".index_focus_next",
+effect: "fold",
+autoPlay: true,
+trigger: "click",
+});
+</script>
+    </div>
+    <!--main-->
+    <div class="main">  
+		 <div class="cont">
+        	<div class="title"><span class="right more"><a href="#">浏览全部</a></span><span class="font2">热门项目</span></div>
+            <div class="text">
+            
+            <ul class="box">
+    <li>
+    <div class="li-img">
+		<a href="#" target="_blank">
+			<img src="../../../resource/home/images/AD.png" />
+			<div class="toll_info"></div>
+            <p>五道口地标星辰海，让艺术和空间的力量改变你我的生活</p>
+		</a>
+        </div>
+       <div class='xiangmu' style="clear:both">
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px; color:#999;"><img src="../../../resource/home/images/comment.png">&nbsp;&nbsp;454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+	</li><li>
+    <div class="li-img">
+		<a href="#" target="_blank">
+			<img src="../../../resource/home/images/AD.png" />
+			<div class="toll_info"></div>
+            <p>五道口地标星辰海，让艺术和空间的力量改变你我的生活</p>
+		</a>
+        </div>
+                            <div class='xiangmu' style="clear:both">
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px;"><img src="../../../resource/home/images/comment.png">454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+	</li>
+    <li>
+    <div class="li-img">
+		<a href="#" target="_blank">
+			<img src="../../../resource/home/images/AD.png" />
+			<div class="toll_info"></div>
+            <p>五道口地标星辰海，让艺术和空间的力量改变你我的生活</p>
+		</a>
+        </div>
+                            <div class='xiangmu' style="clear:both">
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px;"><img src="../../../resource/home/images/comment.png">454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+	</li>
+    <li>
+    <div class="li-img">
+		<a href="#" target="_blank">
+			<img src="../../../resource/home/images/AD.png" />
+			<div class="toll_info"></div>
+            <p>五道口地标星辰海，让艺术和空间的力量改变你我的生活</p>
+		</a>
+        </div>
+                            <div class="xiangmu" style="clear:both">
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px;"><img src="../../../resource/home/images/comment.png">454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+	</li>
+	<li>
+    <div class="li-img">
+		<a href="#" target="_blank">
+			<img src="../../../resource/home/images/AD.png" />
+			<div class="toll_info"></div>
+            <p>五道口地标星辰海，让艺术和空间的力量改变你我的生活</p>
+		</a>
+        </div>
+                            <div class='xiangmu' style="clear:both">
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px;"><img src="../../../resource/home/images/comment.png">454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+	</li>
+    <li>
+    <div class="li-img">
+		<a href="#" target="_blank">
+			<img src="../../../resource/home/images/AD.png" />
+			<div class="toll_info"></div>
+            <p>五道口地标星辰海，让艺术和空间的力量改变你我的生活</p>
+		</a>
+      </div>
+                            <div class='xiangmu' style="clear:both">
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px;"><img src="../../../resource/home/images/comment.png">454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+	</li>
+    <li>
+    <div class="li-img">
+		<a href="#" target="_blank">
+			<img src="../../../resource/home/images/AD.png" />
+			<div class="toll_info"></div>
+            <p>五道口地标星辰海，让艺术和空间的力量改变你我的生活</p>
+		</a>
+      </div>
+                            <div class='xiangmu' style="clear:both">
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px;"><img src="../../../resource/home/images/comment.png">454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+	</li>
+</ul>
+            <!--<ul class="box">
+            <li>
+      <a href="#" target="_blank">
+			<div class="toll_img"><img src="images/pic01.jpg" /></div>
+			<div class="toll_info"><p>专享应用宝首发推荐位，轻松提升新版数据。</p></div>
+		</a>
+            </li>
+            </ul>-->
+            
+            	<!--<div class="nr">
+                <div class="xm">
+                	<div class="toll_img"><img src="images/AD.png"></div>
+                    <div class="toll_info"><p>专享应用宝首发推荐位，轻松提升新版数据。</p></div>
+                    <div >
+                    <div style=" margin:0 5px; font-size:20px; line-height:36px; border-bottom:1px  solid #ccc;">XX酒店项目</div>
+                    <div class="cot">
+                    	<div class="cotL left">需求:</div>
+                        <div class="cotR right">
+                        	<a href="#">项目经理</a>
+                            <a href="#">前台</a>
+                            <a href="#">设计师</a>
+                            <a href="#">前台</a>
+                        </div>
+                    </div>
+                   <div class="tag">
+                   <span class="right" style="display:block; padding-top:5px;"><img src="images/comment.png">454</span>
+                    <a href="#">项目经理</a>
+                    <a href="#">科技类</a>                    
+                        </div>                        
+                        </div>
+
+                    </div>   
+                </div>-->
+                <div class="cont">
+        	<div class="title"><span class="right more"><a href="#">浏览全部</a></span><span class="font2">创业项目</span></div>
+            <div class="text">
+            <ul class="ulxiangmu">
+                 <li>
+                   <div class="divimg">
+                  
+                    <img src="../../../resource/home/images/ad4.png" width="280" height="190">
+                        <div class="divzan">
+                        	21
+                       </div>
+                       <div class="divbeijing">
+                       </div>
+                       <div class="divwenzi">
+                        2014(第八届)全球创业<br/>周中国站志愿者招募
+                        </div>
+                   </div>
+                 </li>
+                 
+                   <li>
+                   <div class="divimg">
+                  
+                    <img src="../../../resource/home/images/ad4.png" width="280" height="190">
+                        <div class="divzan">
+                         21
+                       </div>
+                       <div class="divbeijing">
+                       </div>
+                       <div class="divwenzi">
+                        2014(第八届)全球创业<br/>周中国站志愿者招募
+                        </div>
+                   </div>
+                 </li>
+                 
+                  <li>
+                   <div class="divimg">
+                  
+                    <img src="../../../resource/home/images/ad4.png" width="280" height="190">
+                        <div class="divzan">
+                         21
+                       </div>
+                       <div class="divbeijing">
+                       </div>
+                       <div class="divwenzi">
+                        2014(第八届)全球创业<br/>周中国站志愿者招募
+                        </div>
+                   </div>
+                 </li>
+                 
+                  <li>
+                   <div class="divimg">
+                  
+                    <img src="../../../resource/home/images/ad4.png" width="280" height="190">
+                        <div class="divzan">
+                         21
+                       </div>
+                       <div class="divbeijing">
+                       </div>
+                       <div class="divwenzi">
+                        2014(第八届)全球创业<br/>周中国站志愿者招募
+                        </div>
+                   </div>
+                 </li>
+                 
+                 <li>
+                   <div class="divimg">
+                  
+                    <img src="../../../resource/home/images/ad4.png" width="280" height="190">
+                        <div class="divzan">
+                         21
+                       </div>
+                       <div class="divbeijing">
+                       </div>
+                       <div class="divwenzi">
+                        2014(第八届)全球创业<br/>周中国站志愿者招募
+                        </div>
+                   </div>
+                 </li>
+                 <li>
+                   <div class="divimg">
+                  
+                    <img src="../../../resource/home/images/ad4.png" width="280" height="190">
+                        <div class="divzan">
+                         21
+                       </div>
+                       <div class="divbeijing">
+                       </div>
+                       <div class="divwenzi">
+                        2014(第八届)全球创业<br/>周中国站志愿者招募
+                        </div>
+                   </div>
+                 </li>
+                 
+                 
+                 <li>
+                   <div class="divimg">
+                  
+                    <img src="../../../resource/home/images/ad4.png" width="280" height="190">
+                        <div class="divzan">
+                         21
+                       </div>
+                       <div class="divbeijing">
+                       </div>
+                       <div class="divwenzi">
+                        2014(第八届)全球创业<br/>周中国站志愿者招募
+                        </div>
+                   </div>
+                 </li>
+            </ul>            
+            </div>
+        </div>
+        
+         </div>
+    
+      </div>
+    </div>
+    
+    <include file="Public:footer" />
+</body>
+</html>

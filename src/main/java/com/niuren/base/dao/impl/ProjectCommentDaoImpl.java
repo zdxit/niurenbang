@@ -1,0 +1,1 @@
+package com.niuren.base.dao.impl;import org.springframework.stereotype.Repository;import com.niuren.base.base.impl.BaseDaoImpl;import com.niuren.base.dao.ProjectCommentDao;import com.niuren.base.entity.ProjectComment;@Repository("projectCommentDao")public class ProjectCommentDaoImpl   extends BaseDaoImpl<ProjectComment> implements ProjectCommentDao {}

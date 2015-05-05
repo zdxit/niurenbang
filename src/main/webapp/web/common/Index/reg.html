@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户注册 - <{$Think.config.WEB_NAME}></title>
+<meta name="description" content="<{$Think.config.WEB_DESCRIPTION}>" />
+<meta name="keywords" content="<{$Think.config.WEB_KEYWORD}>" />
+<link href="../../../resource/home/css/zhuc.css" rel="stylesheet" type="text/css">
+<script src="../../../resource/home/js/jquery.js"  type="text/jscript"></script>
+</head>
+
+<body>
+
+<div class="logo">
+	<a href="/"><img src="../../../resource/home/images/logo.png"/></a>
+</div>
+
+<form action="javascript:void(0);" id="myform"  onSubmit="onsumbit();" method="post">
+<div class="ziliao">
+	<ul class="zhiye">
+    	<li onClick="dian(this,1);">
+        	找队友
+        </li>
+        <li onClick="dian(this,2);" class="xuan">
+        	找项目
+        </li>
+        <input type="hidden" name="type" id="hangye" name="hangye" value="2" />
+    </ul>
+	<table>
+      	<tr>
+               <td nowrap="nowrap"> <input name="email" id="mall" type="text" placeholder="请输入电子邮箱" /> </td>
+        </tr>
+    	<tr>
+               <td nowrap="nowrap"> <input name="password" id="password"  type="password"  placeholder="请输入密码" /> </td>
+        </tr>
+        
+    <tr>
+    	<td>
+        	<input checked type="checkbox" style="width:auto;" />我已阅读并同意<a href="java">《牛人邦服务协议》</a>
+        </td>
+    </tr>
+
+        
+        <tr>
+         <td><input type="submit" value="立即注册" class="submit" /></td>
+        </tr>
+    </table>
+</div>
+</form>
+</body>
+</html>
+<script>
+
+function dian(obj,num)
+{
+  $('#hangye').val(num);
+  $('.zhiye li').attr('class','');
+  $(obj).addClass('xuan');
+}
+
+function focusobj(obj,value)
+{
+  if(obj.value==value)
+  {
+    obj.value='';
+  }
+}
+
+function blurobj(obj,value)
+{  
+	if(obj.value=='')
+  {
+    obj.value=value;
+  }
+  
+/*   if(value=='性别')
+  {  
+     if(obj.value!='男' && obj.value!='女' && obj.value!='保密')
+	 {
+	   obj.value='';
+	 }
+  
+   setTimeout(
+	  function(){
+		 $('.sexul').hide();	
+		 },200
+	);	 
+	
+  }*/
+}
+/*
+function play()
+{
+  $('.sexul').show();
+}
+
+$('.sexul li').click(function(){
+	$('.sex').val($(this).html());
+	$('.sexul').hide();
+	}
+);
+*/
+
+function onsumbit()
+{
+  var arrayobj=new Array();
+  arrayobj[0]=['#mall','请输入电子邮箱'];
+  arrayobj[1]=['#password','请输入密码'];
+
+  
+  var obj='';
+  
+  
+  for(var a=0;a<arrayobj.length;a++)
+  {
+    if($(arrayobj[a][0]).val()==arrayobj[a][1] || $(arrayobj[a][0]).val()=='')
+	{
+	   obj+=arrayobj[a][1]+'\n';
+	}
+	
+  }
+  
+  if(obj!='')
+  {
+   alert(obj);
+   return false;
+  }
+  
+  $.ajax({type:'post',url:"<{:U('Index/do_reg')}>",dataType:"json",data: $('#myform').serialize(),success:function(data){
+		if(data=='yzm')
+		{
+			$('#yzm').css({background:'#F6F6F6'});
+		}else if(data=='存在')
+		{
+			alert('邮箱已存在!');
+		}else if(data)
+		{
+			location.href="/";
+		}
+		
+	}});
+ 
+}
+
+
+/*var bodyurl=1;
+var bodylen=3; //背景图片个数
+setInterval(function(){
+  if(bodyurl>bodylen)
+  {
+    bodyurl=1;
+  }
+  
+  $('body').css('background-image','url(images/'+bodyurl+'.png)')
+  bodyurl++;
+},5000);
+*/
+
+
+
+/**
+	     * 上传图片预览
+	     */
+/*	    function previewImage(file,idx){  
+	      
+	      var MAXWIDTH  = 100;  
+	      var MAXHEIGHT = 100; 
+	      if(idx == '1'){
+	      	var div = document.getElementById('preview1');  
+	      if (file.files && file.files[0])  
+	      {  
+	      //alert("-----------");
+	        var img = document.getElementById('imghead1');  
+	        img.onload = function(){  
+	          var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+	          img.width = rect.width;  
+	          img.height = rect.height;  
+	          img.style.marginLeft = rect.left+'px';  
+	          img.style.marginTop = rect.top+'px';  
+	        }  
+	        var reader = new FileReader();  
+	        reader.onload = function(evt){img.src = evt.target.result;}  
+	        reader.readAsDataURL(file.files[0]);  
+	      }else{  
+		        var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="'; 
+		        file.select();  
+		        var src = document.selection.createRange().text;  
+		        var img = document.getElementById('imghead');  
+		        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;  
+		        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);  
+		        status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);  
+		        div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;margin-left:"+rect.left+"px;"+sFilter+src+"\"'></div>";  
+		      } 
+	      }
+
+		}
+*/
+
+
+</script>

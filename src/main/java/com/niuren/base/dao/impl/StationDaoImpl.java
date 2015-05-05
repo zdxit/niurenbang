@@ -1,0 +1,1 @@
+package com.niuren.base.dao.impl;import org.springframework.stereotype.Repository;import com.niuren.base.base.impl.BaseDaoImpl;import com.niuren.base.dao.StationDao;import com.niuren.base.entity.Station;@Repository("stationDao")public class StationDaoImpl   extends BaseDaoImpl<Station> implements StationDao {}

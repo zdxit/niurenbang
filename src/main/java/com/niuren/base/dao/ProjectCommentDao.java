@@ -1,0 +1,1 @@
+package com.niuren.base.dao;import com.niuren.base.entity.ProjectComment;import com.niuren.base.base.BaseDao;public interface ProjectCommentDao extends BaseDao<ProjectComment> {}

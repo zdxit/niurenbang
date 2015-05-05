@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+.myform{margin-top:60px;}
+.news_t{width:100px;float:left;text-align:right;height:24px;line-height:24px;font-size:14px;margin-right:10px}
+.myform p{margin-bottom:10px;width:100%}
+.input{width:300px;}
+.sel{height:30px;line-height:30px;width:200px;}
+.input,textarea,select{background-color: #FFF;border: 1px solid #CCC;box-shadow: 2px 2px 2px #F0F0F0 inset;font-family: inherit;font-size: 100%;line-height: 18px;padding: 4px;margin: 0;vertical-align: middle;}
+.tab {
+margin: 15px 0;
+border-width: 1px;
+border-style: solid;
+border-color: #ddd #ddd #fff #fff;
+text-shadow: 0 1px 0 #FFF;
+border-collapse: separate;
+
+}
+.tab a{color:#111}
+.tab a:hover{color:red}
+thead {
+display: table-header-group;
+vertical-align: middle;
+border-color: inherit;
+}
+tr {
+display: table-row;
+vertical-align: inherit;
+border-color: inherit;
+}
+.tab td {
+padding: 5px 10px;
+margin: 15px 0;
+line-height: 24px;
+border-width: 1px;
+border-style: solid;
+border-color: #fff #fff #ddd #ddd;
+}

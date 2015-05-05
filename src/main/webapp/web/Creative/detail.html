@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title><{$article.title}>-创意行动-<{$Think.config.WEB_NAME}></title>
+		<meta name="description" content="<{$Think.config.WEB_DESCRIPTION}>" />
+		<meta name="keywords" content="<{$Think.config.WEB_KEYWORD}>" />
+		<link href="../../resource/Web/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="../../resource/Web/css/login.css" rel="stylesheet" type="text/css"/>
+		<script src="../../resource/Web/js/jquery.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<include file="Public:header" />
+		<div class="contain">
+			<div class="introduction">
+				<div class="intro-left left">
+					<div class="tab">
+						<div id="Js-nav" class="tab-1">
+							<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a class="bds_count" data-cmd="count"></a></div>
+							<script>window._bd_share_config = {"common": {"bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16"}, "share": {}};
+								with (document)
+									0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+							</script>
+							<ul class="tab-m">
+								<li class="cur"><a href="javascript:void(0)"><span>创益行动</span></a><em></em></li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+						<div class="tab-box">
+							<div class="thfnxw">
+								<div class="intro-top">
+									<a href="#" class="left"><img src="<{$article.litpic}>" height="124" width="124"/></a>
+									<div class="intro-t-r right">
+										<h3><{$article.title}></h3>
+										<p><{$article.simple_descrip}></p>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="about-team">
+									<{$text}>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="intro-right right">
+					<div class="intro-r-con">
+
+						<volist name="list" id="vo">
+							<div class="info-intro">
+								<h3><a href="<{:U('Creative/detail/',array('id'=>$vo['id']),'html')}>"><{$vo.title}></a></h3>
+								<p><{$vo.simple_descrip}></p>
+							</div>
+						</volist>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<include file="Public:footer" />
+	</body>
+</html>

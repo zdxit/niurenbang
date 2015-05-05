@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>项目浏览-<{$Think.config.WEB_NAME}></title>
+		<meta name="description" content="<{$Think.config.WEB_DESCRIPTION}>" />
+		<meta name="keywords" content="<{$Think.config.WEB_KEYWORD}>" />
+		<link href="../../resource/Web/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="../../resource/Web/css/login.css" rel="stylesheet" type="text/css"/>
+		<script src="../../resource/Web/js/jquery.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<include file="Public:header" />
+		<div class="projects-ul">
+			<ul class="box">
+				<volist name="result.list" id="vo">
+					<li>
+						<div class="divimg">
+							<a href="<{:U('Creative/detail/',array('id'=>$vo['id']),'html')}>">
+								<img src="<{$vo.litpic}>" width="246" height="195" alt="" />
+							</a>
+							<div class="zan">
+								<a href="javascript:;" acion="upclick" cid="<{$vo.id}>"><{$vo.click}></a>
+							</div>
+						</div>
+						<div class="divtext">
+							<h3><{$vo.title}></h3>
+							<p><{$vo.simple_descrip}></p>
+						</div>
+					</li>
+				</volist>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="paginator">
+			<{$result.paginator}>
+		</div>
+		</div>
+		<include file="Public:footer" />
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$("*[acion='upclick']").click(function () {
+					var $this = $(this);
+					var cid = $(this).attr('cid');
+					$.ajax({
+						type: "post",
+						data: {'cid': cid},
+						url: "<{:U('Creative/upclick')}>",
+						dataType: "text",
+						success: function (text) {
+							$this.text(text);
+						}
+					});
+
+				});
+			});
+		</script>
+	</body>
+</html>

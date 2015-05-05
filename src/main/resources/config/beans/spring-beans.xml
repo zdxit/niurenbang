@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<!-- 给成员变量使用@Resource和@Autowired的类要被扫描到 -->
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+		<property name="config">
+			<bean class="com.google.code.kaptcha.util.Config">
+				<constructor-arg>
+					<props>
+						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.border">yes</prop>
+						<prop key="kaptcha.image.width">125</prop>
+						<prop key="kaptcha.image.height">45</prop>
+						<prop key="kaptcha.textproducer.font.size">35</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="random" class="java.security.SecureRandom"></bean>
+	<!-- <bean id="desEncryptUtil" class="com.dxsit.base.util.DESEncryptUtil"> 
+		<constructor-arg name="cipher_algorithm" value="${encrypt.cipher_algorithm}" 
+		/> <constructor-arg name="key" value="${encrypt.key}" /> <constructor-arg 
+		name="random" ref="random"></constructor-arg> </bean> <bean id="emailSendUtil" 
+		class="com.dxsit.base.util.EmailSendUtil"> <constructor-arg name="desEncryptUtil" 
+		ref="desEncryptUtil"/> <constructor-arg name="smtp" value="${email.smtp}" 
+		/> <constructor-arg name="adminEmailAddress" value="${email.adminEmailAddress}" 
+		/> <constructor-arg name="adminEmailPassword" value="${email.adminEmailPassword}" 
+		/> <constructor-arg name="title" value="${email.title}" /> <constructor-arg 
+		name="introText" value="${email.intro_text}" /> <constructor-arg name="urlCode" 
+		value="${email.url_code}" /> <constructor-arg name="urlEnd" value="${email.url_end}" 
+		/> <constructor-arg name="url" value="${email.url}"/> <constructor-arg name="end" 
+		value="${email.end}" /> <constructor-arg name="activeUrl" value="${email.active_url}" 
+		/> <constructor-arg name="activeIntroUp" value="${email.active_intro_up}" 
+		/> <constructor-arg name="activeIntroDown" value="${email.active_intro_down}" 
+		/> <constructor-arg name="resetIntroUp" value="${email.reset_password_intro_up}" 
+		/> <constructor-arg name="resetIntroDown" value="${email.reset_password.intro_down}" 
+		/> <constructor-arg name="resetUrl" value="${email.reset_password_url}" /> 
+		<constructor-arg name="nick" value="${email.nick}" /> </bean> -->
+
+	<bean id="md5PasswordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"></bean>
+	
+
+
+
+</beans>
