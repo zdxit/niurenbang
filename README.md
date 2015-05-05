@@ -1,2 +1,2 @@
 # niurenbang
-my
+this is a site of niurenbang
